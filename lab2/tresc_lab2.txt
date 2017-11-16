@@ -1,0 +1,140 @@
+
+Ćwiczenie 2. 
+Szeregowanie procesów
+
+
+1. Cel ćwiczenia
+
+Celem  ćwiczenia  jest zaprojektowanie mechanizmu szeregowania w systemie
+MINIX. W trakcie ćwiczenia należy zamienić standardową procedurę szeregującą
+zgodnie z algorytmem szeregowania o cechach wskazanych przez prowadzącego.
+
+
+2. Szeregowanie w systemie MINIX
+
+W systemie MINIX procesy są podzielone na trzy klasy: 
+
+- zadania systemowe (TASK)
+
+- procesy serwerowe (SERVER)
+
+- procesy użytkowe (USER)
+
+Procesy TASK maja bezwzględny priorytet nad procesami SERVER, a te z kolei nad
+procesami USER. Procesy systemowe TASK i SERVER są realizowane w reżimie
+pobłażającym, to znaczy proces realizuje się tak długo, aż sam zrzecze się
+procesora.  Proces USER po wyczerpaniu kwantu czasu jest przenoszony na koniec
+kolejki procesów gotowych. Procedura szeregująca wybiera do realizacji zawsze
+proces będący głową kolejki procesów gotowych.
+
+
+3. Przykładowy algorytm szeregowania
+
+Poniżej przedstawiono przykładowy algorytm szeregowania. Proszę pamiętać, że
+jets to tylko przykład, a właściwe zadanie do zrealizowania w ramach
+laboratorium znajduje się w punkcie 6.
+
+W przykładowym algorytmie szeregowania obowiązują następujące zasady:
+
+- proces ma dwa atrybuty: priorytet bazowy BASE_PRI i priorytet aktualny
+  ACT_PRI.
+
+- dwie zmienne systemowe MAX_AGE i MIN_PRI, MAX_AGE>MIN_PRI, dzielą
+  szeregowane procesy na trzy kategorie:
+
+	  * priorytet bazowy > MAX_AGE - proces realizowany w reżimie 
+	pobłażania (oczywiście z wyjątkiem procesów klas TASK i SERVER), priorytet
+	bieżący zawsze równy bazowemu,
+    
+	  * priorytet bazowy > MIN_PRI, <= MAX_AGE - proces 
+	realizowany w reżimie starzenia: proces któremu jest zabierany procesor
+	otrzymuje priorytet bieżący równy bazowemu, wszystkie inne z tej grupy
+	zwiększają priorytet bieżący o 1 (maksymalnie do MAX_AGE); proces któremu
+	jest zabierany procesor jest wstawiany do kolejki za innymi procesami o
+	tym samym priorytecie bieżącym,
+    
+	  * priorytet bazowy < MIN_PRI - proces realizowany w reżimie 
+	priorytetów statycznych z podziałem czasu: proces któremu jest zabierany
+	procesor jest wstawiany do kolejki za innymi procesami o tym samym
+	priorytecie bieżącym; priorytet bieżący zawsze równy bazowemu.
+
+
+4. Cechy funkcjonalne przykładowego algorytmu w systemie MINIX:
+
+- realizacja szeregowania zgodnie z przedstawionym algorytmem,
+
+- wartości początkowe zmiennych: MAX_AGE=1000, MIN_PRI=100,
+
+- każdy nowo tworzony proces otrzymuje priorytet bazowy i bieżący równe
+  MIN_PRI,
+
+- system udostępnia nowe wywołanie - ustaw parametr szeregowania:
+
+	void set_PRI (int nr; unsigned VALUE) 
+
+	nr = 1  nadaj bieżącemu procesowi priorytet VALUE 
+	nr = 2  ustaw zmienna MAX_AGE na VALUE 
+	nr = 3  ustaw zmienna MIN_PRI na VALUE
+
+5. Wskazówki implementacyjne przy implementacji algorytmu przykładowego
+
+a) plik kernel/proc.h:
+	
+	- w strukturze 'proc' umieścić priorytet bazowy i bieżący procesu,
+	
+	- zadeklarować zmienne systemowe MAX_AGE i MIN_PRI.
+
+b) plik kernel/proc.c:
+	
+	- w funkcji 'sched()', która jest procedurą szeregującą, zamiast
+	  przenoszenia procesu bieżącego na koniec kolejki procesów gotowych
+	  zrealizować zasady algorytmu przykładowego,
+	
+	- w funkcji 'ready(rp)', która budzi proces, zadbać o umieszczenie go w
+	  odpowiednim miejscu struktur algorytmu (jeżeli jest to proces klasy
+	  USER).
+
+c) plik kernel/system.c:
+	
+	- w funkcji 'do_fork(m_ptr)', która tworzy nowy proces, w części
+	  dotyczącej procesów klasy USER zadbać o odpowiednie zainicjowanie
+	  priorytetu bazowego i bieżącego procesu.
+
+d) plik kernel/main.c:
+	
+	- w funkcji 'main()', na początku zadbać o właściwe zainicjowanie
+	  zmiennych systemowych MAX_AGE i MIN_PRI, w pętli powołującej deskryptory
+	  procesów (for (rp=BEG...)) zadbać o właściwe wypełnienie priorytetów, w
+	  części końcowej powołującej proces INIT zadbać również o odpowiednie
+	  wartości priorytetów.
+
+e) dodać do systemu wywołanie systemowe zgodnie ze składnią podaną w punkcie
+4, z tym, że odwołanie ma nastąpić do samego mikrojądra za pośrednictwem
+jednego z modułów MM/FS. Dlatego też funkcja realizująca dodane wywołanie
+systemowe (np. o nazwie do_setpri()) w jednym z modułów MM/FS powinna mieć
+poniższa postać:
+
+PUBLIC void do_setpri() 
+{ 	
+	message m; 
+	m = mm_in; 
+	_taskcall(SYSTASK, SYS_SETPRI, &m); 
+}
+
+gdzie SYS_SETPRI jest zdefiniowana przez nas stała w pliku
+/usr/include/minix/com.h. 
+
+Ponadto, do pliku /usr/src/kernel/system.c należy dodać obsługę funkcji o
+numerze SYS_SETPRI i zdefiniować samą funkcję obsługującą to wywołanie. W
+obsłudze można wykorzystać makro proc_addr( id ) zwracające wskazanie na
+strukturę proc zadanego procesu.
+
+
+6. Zadanie do zrealizowania
+
+Prowadzący poleci studentom zrealizować algorytm szeregowania o zadanych
+własnościach funkcjonalnych. Przykład: zrealizować algorytm szeregowania który
+zapewni właściwe traktowanie procesów trzech kategorii: interaktywnych (np.
+gra w statki), obliczeniowych (obliczenia numeryczne) oraz masywnego
+wejścia/wyjścia realizowanego w tle (np. proces składowania dysku na taśmie).
+
