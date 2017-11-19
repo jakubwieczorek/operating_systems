@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jakub/Dokumenty/soi/lab2/sched/const.h
+
+/home/jakub/Dokumenty/soi/lab2/sched/main.c
+stdio.h
+-
+stdbool.h
+-
+proc.h
+/home/jakub/Dokumenty/soi/lab2/sched/proc.h
+
+/home/jakub/Dokumenty/soi/lab2/sched/proc.c
+proc.h
+/home/jakub/Dokumenty/soi/lab2/sched/proc.h
+
+/home/jakub/Dokumenty/soi/lab2/sched/proc.h
+stdlib.h
+-
+stdbool.h
+-
+const.h
+/home/jakub/Dokumenty/soi/lab2/sched/const.h
+

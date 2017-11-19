@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/sched.dir/main.c.o CMakeFiles/sched.dir/proc.c.o  -o sched 

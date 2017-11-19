@@ -1,0 +1,3 @@
+/home/jakub/Dokumenty/soi/lab2/sched/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jakub/Dokumenty/soi/lab2/sched/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jakub/Dokumenty/soi/lab2/sched/cmake-build-debug/CMakeFiles/sched.dir
