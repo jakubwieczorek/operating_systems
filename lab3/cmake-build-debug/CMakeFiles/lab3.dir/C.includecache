@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jakub/Dokumenty/soi/lab3/example.c
+stdio.h
+-
+sys/types.h
+-
+sys/ipc.h
+-
+sys/sem.h
+-
+zconf.h
+-
+stdlib.h
+-
+

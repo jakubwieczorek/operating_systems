@@ -9,14 +9,14 @@ void main(void)
 //    ready(build_proc(HIGH, "HIGH"));
 //    ready(build_proc(HIGH, "HIGH1"));
 //    ready(build_proc(HIGH, "HIGH2"));
+//
+//    ready(build_proc(MEDIUM, "MEDIUM"));
+//    ready(build_proc(MEDIUM, "MEDIUM1"));
+//    ready(build_proc(MEDIUM, "MEDIUM2"));
 
-    ready(build_proc(MEDIUM, "MEDIUM"));
-    ready(build_proc(MEDIUM, "MEDIUM1"));
-    ready(build_proc(MEDIUM, "MEDIUM2"));
-
-//    ready(build_proc(LOW, "LOW"));
-//    ready(build_proc(LOW, "LOW1"));
-//    ready(build_proc(LOW, "LOW2"));
+    ready(build_proc(LOW, "LOW"));
+    ready(build_proc(LOW, "LOW1"));
+    ready(build_proc(LOW, "LOW2"));
 
     char c = 0;
 
