@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 
 void init(int argc, char *argv[])
 {
-    init_factory(&y_factory, 'Y', 5);
-    init_factory(&z_factory, 'Z', 5);
+    init_factory(&y_factory, 'Y', 1);
+    init_factory(&z_factory, 'Z', 1);
 
     p_factory = malloc(sizeof(p_factory_t));
     p_factory->elem_num = 10;
