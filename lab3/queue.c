@@ -10,6 +10,8 @@ void enqueue(int elem, queue **a_tail, queue **a_head)
     {
         *a_tail = new_elem;
         *a_head = new_elem;
+        (*a_head)->next = *a_tail;
+
         return;
     }
 

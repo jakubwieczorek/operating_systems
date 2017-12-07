@@ -8,10 +8,10 @@
 void create_elem(factory *a_factory, int a_elem, char a_elem_type)
 {
     lock_queue(a_factory); // down
+    do_operation(a_factory->overflow_protector_sem, -1);
     printf("%d elem creation of type %c\n", a_elem, a_elem_type);
     enqueue(a_elem, &(a_factory->tail), &(a_factory->head));
     sleep(1);
-    do_operation(a_factory->overflow_protector_sem, -1);
     do_operation(a_factory->zero_protector_sem, 1);
     unlock_queue(a_factory); // up
 }
@@ -56,10 +56,44 @@ void get_shared_data()
 {
     if(y_factory->tail != NULL && y_factory->head != NULL)
     {
-        y_factory->tail = (queue *) shmat(y_factory->tail_id, NULL, SHM_EXEC);
-        y_factory->head = (queue *) shmat(y_factory->head_id, NULL, SHM_EXEC);
+        y_factory->tail = (queue *) attach(y_factory->tail_id);
+        y_factory->head = (queue *) attach(y_factory->head_id);
 
-        z_factory->tail = (queue *) shmat(z_factory->tail_id, NULL, SHM_EXEC);
-        z_factory->head = (queue *) shmat(z_factory->head_id, NULL, SHM_EXEC);
+        z_factory->tail = (queue *) attach(z_factory->tail_id);
+        z_factory->head = (queue *) attach(z_factory->head_id);
+    }
+}
+
+void* attach(int a_id)
+{
+    void* mem_seg;
+
+    if((mem_seg = shmat(a_id, NULL, 0)) == (void*) -1)
+    {
+        perror("shmat error");
+        exit(-1);
+    }
+
+    return mem_seg;
+}
+
+void detach_shared_data()
+{
+    if(y_factory->tail != NULL && y_factory->head != NULL)
+    {
+        detach(y_factory->tail);
+        detach(y_factory->head);
+
+        detach(z_factory->tail);
+        detach(z_factory->head);
+    }
+}
+
+void detach(void* a_mem_seg)
+{
+    if(shmdt(a_mem_seg) == -1)
+    {
+        perror("shmdt error");
+        exit(-1);
     }
 }

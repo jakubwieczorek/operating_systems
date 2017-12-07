@@ -1,43 +1,29 @@
-#include <string.h>
-#include <unistd.h>
-
+#include <sys/shm.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/mman.h>
+#include "queue.h"
 
-void* create_shared_memory(size_t size) {
-    // Our memory buffer will be readable and writable:
-    int protection = PROT_READ | PROT_WRITE;
+int main()
+{
+    int shm;
 
-    // The buffer will be shared (meaning other processes can access it), but
-    // anonymous (meaning third-party processes cannot obtain an address for it),
-    // so only this process and its children will be able to use it:
-    int visibility = MAP_ANONYMOUS | MAP_SHARED;
+    if((shm = shmget(1111, sizeof(queue), 0666 | IPC_CREAT)) == -1)
+    {
+        perror("shmget error");
+        exit(-1);
+    }
 
-    // The remaining parameters to `mmap()` are not important for this use case,
-    // but the manpage for `mmap` explains their purpose.
-    return mmap(NULL, size, protection, visibility, 0, 0);
-}
+    void* mem_seg;
 
-int main() {
-    char* parent_message = "hello";  // parent process will write this message
-    char* child_message = "goodbye"; // child process will then write this one
+    if((mem_seg = shmat(shm, NULL, 0)) == (void*) -1)
+    {
+        perror("shmat error");
+        exit(-1);
+    }
 
-    void* shmem = create_shared_memory(128);
-
-    memcpy(shmem, parent_message, sizeof(parent_message));
-
-    int pid = fork();
-
-    if (pid == 0) {
-        printf("Child read: %s\n", shmem);
-        sleep(25);
-        memcpy(shmem, child_message, sizeof(child_message));
-        printf("Child wrote: %s\n", shmem);
-
-    } else {
-        printf("Parent read: %s\n", shmem);
-        sleep(25);
-        printf("After 1s, parent read: %s\n", shmem);
+    if(shmdt(mem_seg) == -1)
+    {
+        perror("shmdt error");
+        exit(-1);
     }
 }

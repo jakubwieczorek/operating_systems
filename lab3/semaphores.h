@@ -44,5 +44,8 @@ int get_elem(factory *a_factory);
 void lock_queue(factory *a_factory);
 void unlock_queue(factory *a_factory);
 void get_shared_data();
+void detach(void* a_mem_seg);
+void detach_shared_data();
+void* attach(int a_id);
 
 #endif

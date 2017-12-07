@@ -21,10 +21,10 @@ queue.h
 /home/jakub/Dokumenty/soi/lab3/queue.h
 main.h
 /home/jakub/Dokumenty/soi/lab3/main.h
-semaphores.h
-/home/jakub/Dokumenty/soi/lab3/semaphores.h
 
 /home/jakub/Dokumenty/soi/lab3/main.h
+semaphores.h
+/home/jakub/Dokumenty/soi/lab3/semaphores.h
 
 /home/jakub/Dokumenty/soi/lab3/queue.c
 stdlib.h
