@@ -5,36 +5,36 @@
 #include <sys/shm.h>
 #include "semaphores.h"
 
-void create_elem(factory *a_factory, int a_elem, char a_elem_type)
+void create_elem(factory **a_factory, int a_elem, char a_elem_type)
 {
     lock_queue(a_factory); // down
-    do_operation(a_factory->overflow_protector_sem, -1);
+    do_operation((*a_factory)->overflow_protector_sem, -1);
     printf("%d elem creation of type %c\n", a_elem, a_elem_type);
-    enqueue(a_elem, &(a_factory->tail), &(a_factory->head));
+    enqueue(a_elem, &((*a_factory)->tail), &((*a_factory)->head));
     sleep(1);
-    do_operation(a_factory->zero_protector_sem, 1);
+    do_operation((*a_factory)->zero_protector_sem, 1);
     unlock_queue(a_factory); // up
 }
 
-void lock_queue(factory *a_factory)
+void lock_queue(factory **a_factory)
 {
-    do_operation(a_factory->access_protector_sem, -1);
+    do_operation((*a_factory)->access_protector_sem, -1);
 }
 
-void unlock_queue(factory *a_factory)
+void unlock_queue(factory **a_factory)
 {
-    do_operation(a_factory->access_protector_sem, 1);
+    do_operation((*a_factory)->access_protector_sem, 1);
 }
 
-int get_elem(factory *a_factory)
+int get_elem(factory **a_factory)
 {
-    do_operation(a_factory->zero_protector_sem, -1); // nie w sekcji krytycznej by nie dopuscic do blokady
+    do_operation((*a_factory)->zero_protector_sem, -1); // nie w sekcji krytycznej by nie dopuscic do blokady
     lock_queue(a_factory); // down
-    int elem = dequeue(&(a_factory->head))->elem;
+    int elem = dequeue(&((*a_factory)->head))->elem;
     printf("get elem %d\n", elem);
     sleep(1);
     unlock_queue(a_factory); // up
-    do_operation(a_factory->overflow_protector_sem, 1);
+    do_operation((*a_factory)->overflow_protector_sem, 1);
 
     return elem;
 }
@@ -48,6 +48,15 @@ void do_operation(int a_sem, short a_sem_op)
     if(semop(a_sem, sem_buf, 1) == -1)
     {
         perror("semop error");
+        exit(-1);
+    }
+}
+
+void init_sem(int a_sem_id, short a_value)
+{
+    if(semctl(a_sem_id, 0, SETVAL, a_value) == -1)
+    {
+        perror("semctl error");
         exit(-1);
     }
 }

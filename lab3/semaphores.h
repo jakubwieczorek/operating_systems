@@ -38,14 +38,15 @@ p_factory_t *p_factory;
 factory *y_factory, *z_factory;
 struct sembuf *sem_buf;
 
-void create_elem(factory *a_factory, int a_elem, char a_elem_type);
+void create_elem(factory **a_factory, int a_elem, char a_elem_type);
 void do_operation(int a_sem, short a_sem_op);
-int get_elem(factory *a_factory);
-void lock_queue(factory *a_factory);
-void unlock_queue(factory *a_factory);
+int get_elem(factory **a_factory);
+void lock_queue(factory **a_factory);
+void unlock_queue(factory **a_factory);
 void get_shared_data();
 void detach(void* a_mem_seg);
 void detach_shared_data();
 void* attach(int a_id);
+void init_sem(int a_sem_id, short a_value);
 
 #endif
