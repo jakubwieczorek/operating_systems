@@ -17,6 +17,8 @@ sys/shm.h
 -
 stdio.h
 -
+stdbool.h
+-
 queue.h
 /home/jakub/Dokumenty/soi/lab3/queue.h
 main.h
@@ -44,6 +46,8 @@ stdlib.h
 zconf.h
 -
 sys/shm.h
+-
+stdbool.h
 -
 semaphores.h
 /home/jakub/Dokumenty/soi/lab3/semaphores.h

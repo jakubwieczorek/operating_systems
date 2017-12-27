@@ -3,23 +3,30 @@
 
 #include "queue.h"
 
+enum {ZERO_PROTECTOR, OVERFLOW_PROTECTOR, LOCK, ELEM_NUMBER_PROTECTOR};
+
+struct common_properties
+{
+    const size_t queue_size;
+    const short elem_amount;
+    const int sem_size;
+};
+
 typedef struct factory
 {
     int robots_num; // robotow produkuje element i kladzie je na buforze by
     char factory_type;
 
-    size_t queue_size;
     queue *head, *tail; // pierwszy, ostatni element w kolejce
+    short* cur_elem_size;
 
     int head_id, tail_id;
     int head_shm_key, tail_shm_key;
+    int cur_elem_size_id, cur_elem_shm_key;
 
-    int zero_protector_sem, zero_protector_sem_key;
-    int overflow_protector_sem, overflow_protector_sem_key;
+    int sem_key, sem;
 
-    int access_protector_sem, access_protector_sem_key;
 } factory;
-
 
 typedef struct p_robot
 {
@@ -30,23 +37,25 @@ typedef struct p_robot
 typedef struct p_factory_t
 {
     int robots_num;
-    int elem_num; // ilosc elementow do stworzenia
     p_robot *p_robots;
+
+    short* cur_elem_size;
+    int cur_elem_size_id, cur_elem_shm_key;
 } p_factory_t;
 
 p_factory_t *p_factory;
 factory *y_factory, *z_factory;
 struct sembuf *sem_buf;
 
-void create_elem(factory **a_factory, int a_elem, char a_elem_type);
-void do_operation(int a_sem, short a_sem_op);
-int get_elem(factory **a_factory);
+void do_operation(int a_sem, unsigned short a_sem_num, short a_sem_op);
+int get_elem(int a_robot_num);
 void lock_queue(factory **a_factory);
 void unlock_queue(factory **a_factory);
 void get_shared_data();
 void detach(void* a_mem_seg);
 void detach_shared_data();
 void* attach(int a_id);
-void init_sem(int a_sem_id, short a_value);
+void init_sem(int a_sem_id, int sem_num, short a_value);
+void build_elem(factory** a_factory);
 
 #endif
