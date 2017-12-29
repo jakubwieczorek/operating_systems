@@ -1,0 +1,2 @@
+modyfikacja best fita grabskiego
+przydzielamy najmniejszy blok, wiêkszy od mno¿nik * zapotrzebowanie, a jeœli nie ma takiego to pierwszy pasuj¹cy(chyba)..

@@ -1,0 +1,7 @@
+version: '2'
+services:
+  minix:
+    build:
+      context: .
+      dockerfile: dockerfile-minix
+    tty: true

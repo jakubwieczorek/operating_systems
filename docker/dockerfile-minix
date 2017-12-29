@@ -1,0 +1,3 @@
+FROM minix203:latest
+
+ENTRYPOINT ["/bin/sh"]
