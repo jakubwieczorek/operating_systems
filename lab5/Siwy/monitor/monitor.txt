@@ -1,4 +1,0 @@
-Bufor 9 elementowy FIFO. Dwoch konsumentow i dwoch producentow.
-Producent A produkuje litere A Producent B produkuje litere B.
-element jest usuwany z bufora po odczytaniu przez obu konsumentow,
-gdy liczba w buforze jest wieksza niz 3.
