@@ -8,10 +8,12 @@
 
 using namespace std;
 
-#define N 4 //
-#define K 2 // K stanowisk serwisowych
+// do testowania: 2, 1, 2, 1; 3, 1, 2, 1; 3, 2, 2, 1; 4, 5, 2, 2; 4, 3, 2, 2; 5, 4, 2, 3
+
+#define N 5 //
+#define K 4 // K stanowisk serwisowych
 #define L 2 // liczba tankowan
-#define P 2 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace
+#define P 3 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace
 
 Monitor monitor; // jeden monitor bo tylko jeden wspodzielony zasob gdzie moze byc tylko jeden watek na raz - pas
 bool isServicePassFree = true;
@@ -27,9 +29,11 @@ void refuelling(int aBolidId);
 void freeServicePass();
 void driveOut(int aBolidId);
 
+int endAmount = 0;
+
 int draw()
 {
-	return abs(rand() % 3) + 1; // od 0 do 5
+	return rand() % 3 + 1; // od 0 do 5
 }
 
 void ride(int aBolidId)
@@ -48,7 +52,7 @@ void driveDown(int aBolidId)
 void refuelling(int aBolidId)
 {
 	cout<<"Tankowanie (Bolid "<<aBolidId<<")"<<endl;
-	sleep(8);
+	sleep(2);
 }
 
 void freeServicePass()
@@ -68,6 +72,8 @@ void bolid(int aBolidId)
 	int l = L;
 	while(l--)
 	{
+		//cout<<"l: "<<l<<endl;
+
 		ride(aBolidId);
 
 		monitor.enter();	
@@ -86,6 +92,8 @@ void bolid(int aBolidId)
 		
 		// juz zjechal
 		freeServicePass();
+		// powiadom oczekujacych na wyjazd ze moga wyjechac bo aleja serwisowa jest pusta albo co wazniejsze ma teraz pierwszenstwo 
+		monitor.signal(waitingAmountToLeaveC);
 		inService++;
 		monitor.leave();
 	
@@ -93,11 +101,15 @@ void bolid(int aBolidId)
 		
 		// wyjazd:
 		monitor.enter();
-		// jesli jest zajety
-		if(!isServicePassFree || inService < P)
+		// jesli jest zajety pas serwisowy lub pierwszenstwo maja wjezdzajacy i wjezdajacy nie skonczyli wyscigu
+		if(!isServicePassFree || (inService < P && endAmount < P))
 		{
+			//cout<<"aBolidId: "<<aBolidId<<endl;
+			//cout<<"isServicePasFree: "<<isServicePassFree<<endl;
+			//cout<<"inService: "<<inService<<endl;
+			//cout<<"endAmount:"<<endAmount<<endl;
 			monitor.wait(waitingAmountToLeaveC);
-			monitor.enter();
+			// monitor.enter();
 		}
 
 		isServicePassFree = false;
@@ -113,6 +125,9 @@ void bolid(int aBolidId)
 		monitor.leave();
 		//cout<<"siema2, "<<aBolidId<<endl;	
 	}
+
+	//cout<<"siema "<<aBolidId<<endl;
+	endAmount++;
 }
 
 int main()
