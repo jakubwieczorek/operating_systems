@@ -10,10 +10,10 @@ using namespace std;
 
 // do testowania: 2, 1, 2, 1; 3, 1, 2, 1; 3, 2, 2, 1; 4, 5, 2, 2; 4, 3, 2, 2; 5, 4, 2, 3
 
-#define N 5 //
-#define K 4 // K stanowisk serwisowych
+#define N 3 //
+#define K 1 // K stanowisk serwisowych
 #define L 2 // liczba tankowan
-#define P 3 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace
+#define P 1 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace
 
 Monitor monitor; // jeden monitor bo tylko jeden wspodzielony zasob gdzie moze byc tylko jeden watek na raz - pas
 bool isServicePassFree = true;
@@ -57,7 +57,27 @@ void refuelling(int aBolidId)
 
 void freeServicePass()
 {	
-	isServicePassFree = true;	
+	if(inService < P) // pierwszenstwo wjezdzajacy
+	{	
+		if(waitingAmountToEnterC.signal()) // jesli ktos chce wjechac
+		{
+			monitor.enter();
+		} else if(waitingAmountToLeaveC.signal()) // gdy nikt nie chce wjechac
+		{
+			monitor.enter();
+		}
+	} else 
+	{
+		if(waitingAmountToLeaveC.signal()) // jesli ktos chce wyjechac
+		{
+			monitor.enter();
+		} else if(waitingAmountToEnterC.signal()) // gdy nikt nie chce wyjechac
+		{
+			monitor.enter();
+		}
+	}
+	
+	isServicePassFree = true;
 }
 
 void driveOut(int aBolidId)
@@ -72,61 +92,52 @@ void bolid(int aBolidId)
 	int l = L;
 	while(l--)
 	{
-		//cout<<"l: "<<l<<endl;
-
 		ride(aBolidId);
-
-		monitor.enter();	
-		// jesli jest zajety pass serwisowy lub ilosc bolidow w alei serwisowej jest wieksza, rowna P
-		if(!isServicePassFree || inService >= P)
-		{
-			// wsrodku tej metody jest leave
-			monitor.wait(waitingAmountToEnterC);
-			
-			//cout<<"siema3, "<<aBolidId<<endl;	
-			// po koncu oczekiwania zjazd na pas serwisowy
-			//monitor.enter();
-		}
-		isServicePassFree = false;
-		driveDown(aBolidId);
 		
-		// juz zjechal
-		freeServicePass();
-		// powiadom oczekujacych na wyjazd ze moga wyjechac bo aleja serwisowa jest pusta albo co wazniejsze ma teraz pierwszenstwo 
-		monitor.signal(waitingAmountToLeaveC);
-		inService++;
-		monitor.leave();
+		// wjazd
+		monitor.enter();	
+		// jesli jest wolny pas serwisowy i jest miejsce w alei to zajmij pas:
+		if(isServicePassFree && inService < K)
+		{
+			isServicePassFree = false;
+			
+		} else // jesli nie to ustaw sie w kolejce do wjazdu
+		{	
+			cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
+			monitor.wait(waitingAmountToEnterC);	
+			cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
+		}
+
+		driveDown(aBolidId); // zjezdza
+
+		inService++; // zjechal i zajal stanowisko			
+		freeServicePass(); // zwolnij pas i powiadom albo wjezdzajacych albo wyjezdzajacych w zaleznosci od priorytetu
+		
+		monitor.leave(); 
 	
 		refuelling(aBolidId);
 		
 		// wyjazd:
 		monitor.enter();
-		// jesli jest zajety pas serwisowy lub pierwszenstwo maja wjezdzajacy i wjezdajacy nie skonczyli wyscigu
-		if(!isServicePassFree || (inService < P && endAmount < P))
+		// jesli jest wolny pas serwisowy to wyjedz
+		if(isServicePassFree)
 		{
-			//cout<<"aBolidId: "<<aBolidId<<endl;
-			//cout<<"isServicePasFree: "<<isServicePassFree<<endl;
-			//cout<<"inService: "<<inService<<endl;
-			//cout<<"endAmount:"<<endAmount<<endl;
+			isServicePassFree = false;
+		} else
+		{
+			cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
 			monitor.wait(waitingAmountToLeaveC);
-			// monitor.enter();
+			cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
 		}
 
-		isServicePassFree = false;
-		driveOut(aBolidId);
+		driveOut(aBolidId); // wyjezdza
 	
-		// juz wyjechal
-		freeServicePass();
 		inService--;
+		freeServicePass();
 			
-		monitor.signal(waitingAmountToEnterC);
-		monitor.signal(waitingAmountToLeaveC);
-		//cout<<"siema1, "<<aBolidId<<endl;	
 		monitor.leave();
-		//cout<<"siema2, "<<aBolidId<<endl;	
 	}
 
-	//cout<<"siema "<<aBolidId<<endl;
 	endAmount++;
 }
 
