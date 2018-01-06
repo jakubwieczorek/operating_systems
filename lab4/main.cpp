@@ -71,8 +71,8 @@ void freeServicePass()
 		if(waitingAmountToLeaveC.signal()) // jesli ktos chce wyjechac
 		{
 			monitor.enter();
-		} else if(waitingAmountToEnterC.signal()) // gdy nikt nie chce wyjechac
-		{
+		} else if(inService < K && waitingAmountToEnterC.signal()) // gdy nikt nie chce wyjechac
+		{	cout<<"HELLO ZIOM MASZ BUGA"<<endl;
 			monitor.enter();
 		}
 	}
