@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="pl-PL">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="pl-PL">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="pl-PL">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Szeregowanie loteryjne w systemie MINIX | blog.peku33.net</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://blog.peku33.net/xmlrpc.php" />
+<!--[if lt IE 9]>
+<script src="https://blog.peku33.net/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="blog.peku33.net &raquo; Kanał z wpisami" href="https://blog.peku33.net/feed/" />
+<link rel="alternate" type="application/rss+xml" title="blog.peku33.net &raquo; Kanał z komentarzami" href="https://blog.peku33.net/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="blog.peku33.net &raquo; Szeregowanie loteryjne w systemie MINIX Kanał z komentarzami" href="https://blog.peku33.net/szeregowanie-loteryjne-w-systemie-minix/feed/" />
+<!-- This site uses the Google Analytics by MonsterInsights plugin v6.2.6 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+<script type="text/javascript" data-cfasync="false">
+		var disableStr = 'ga-disable-UA-9209621-12';
+
+	/* Function to detect opted out users */
+	function __gaTrackerIsOptedOut() {
+		return document.cookie.indexOf(disableStr + '=true') > -1;
+	}
+
+	/* Disable tracking if the opt-out cookie exists. */
+	if ( __gaTrackerIsOptedOut() ) {
+		window[disableStr] = true;
+	}
+
+	/* Opt-out function */
+	function __gaTrackerOptout() {
+	  document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+	  window[disableStr] = true;
+	}
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-9209621-12', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+</script>
+<!-- / Google Analytics by MonsterInsights -->
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.peku33.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='twentytwelve-fonts-css'  href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='twentytwelve-style-css'  href='https://blog.peku33.net/wp-content/themes/twentytwelve/style.css?ver=4.9.1' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='https://blog.peku33.net/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='easy_table_style-css'  href='https://blog.peku33.net/wp-content/plugins/easy-table/themes/default/style.css?ver=1.6' type='text/css' media='all' />
+<link rel='stylesheet' id='mimetypes-link-icons-css'  href='https://blog.peku33.net/wp-content/plugins/mimetypes-link-icons/css/style.php?cssvars=bXRsaV9oZWlnaHQ9MTYmbXRsaV9pbWFnZV90eXBlPXBuZyZtdGxpX2xlZnRvcnJpZ2h0PWxlZnQ&#038;ver=3.0' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","is_debug_mode":"false","download_extensions":"doc,exe,js,pdf,ppt,tgz,zip,xls","inbound_paths":"","home_url":"https:\/\/blog.peku33.net","track_download_as":"event","internal_label":"int","hash_tracking":"false"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend.min.js?ver=6.2.6'></script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='https://blog.peku33.net/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.peku33.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blog.peku33.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Allwinner A23 Android partitions' href='https://blog.peku33.net/allwiner-a23-android-partitions/' />
+<link rel='next' title='Chinese techincal thought' href='https://blog.peku33.net/chinese-techincal-thought/' />
+<meta name="generator" content="WordPress 4.9.1" />
+<link rel="canonical" href="https://blog.peku33.net/szeregowanie-loteryjne-w-systemie-minix/" />
+<link rel='shortlink' href='https://blog.peku33.net/?p=42' />
+<link rel="alternate" type="application/json+oembed" href="https://blog.peku33.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.peku33.net%2Fszeregowanie-loteryjne-w-systemie-minix%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://blog.peku33.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.peku33.net%2Fszeregowanie-loteryjne-w-systemie-minix%2F&#038;format=xml" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #020202; }
+</style>
+</head>
+
+<body class="post-template-default single single-post postid-42 single-format-standard custom-background custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="https://blog.peku33.net/" title="blog.peku33.net" rel="home">blog.peku33.net</a></h1>
+			<h2 class="site-description">Blog peku33. O programowaniu, o życiu.</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="#content" title="Przeskocz do treści">Przeskocz do treści</a>
+			<div class="nav-menu"><ul>
+<li ><a href="https://blog.peku33.net/">Strona główna</a></li><li class="page_item page-item-11"><a href="https://blog.peku33.net/o-mnie-about/">O mnie / About</a></li>
+<li class="page_item page-item-18"><a href="https://blog.peku33.net/kontakt-contact/">Kontakt / Contact</a></li>
+</ul></div>
+		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-42" class="post-42 post type-post status-publish format-standard hentry category-minix category-programowanie-coding tag-lottery-scheduling tag-minix-2 tag-pw tag-soi">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">Szeregowanie loteryjne w systemie MINIX</h1>
+										<div class="comments-link">
+					<a href="https://blog.peku33.net/szeregowanie-loteryjne-w-systemie-minix/#respond"><span class="leave-reply">Napisz odpowiedź</span></a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<h1>Postawy teoretyczne, najbardziej obrazowo jak to możliwe</h1>
+<p>Szeregowanie loteryjne polega na tym, aby następny proces do uruchomienia niejako ‚wylosować’, jednak z zachowaniem możliwości ustalania priorytetu. W tym opisie priorytet będzie zależał od &#8222;ilości losów&#8221;.</p>
+<p>Każdy proces powinien posiadać pewną liczbę losów, na potrzeby zadania przyjmiemy od 1 do 20. Liczbę losów nadaje się mu przy jego utworzeniu i będzie ona zmieniana wyłącznie na żądanie użytkownika. Liczba losów jest na poniższym obrazku tożsama z szerokością prostokąta.</p>
+<p><a href="http://blog.peku33.net/wp-content/uploads/2014/11/minix1.jpg"><img class="alignnone size-full wp-image-43" src="http://blog.peku33.net/wp-content/uploads/2014/11/minix1.jpg" alt="minix1" width="1760" height="551" srcset="https://blog.peku33.net/wp-content/uploads/2014/11/minix1.jpg 1760w, https://blog.peku33.net/wp-content/uploads/2014/11/minix1-300x93.jpg 300w, https://blog.peku33.net/wp-content/uploads/2014/11/minix1-1024x320.jpg 1024w, https://blog.peku33.net/wp-content/uploads/2014/11/minix1-624x195.jpg 624w" sizes="(max-width: 1760px) 100vw, 1760px" /></a></p>
+<p>Kiedy ma nastąpić wybranie nowego procesu do wykonania &#8211; losujemy liczbę od 1 do sumy losów wszystkich gotowych procesów. W tym wypadku od 1 do 11.</p>
+<p>Następnie patrzymy na którym procesie wypadła nasza liczba i ten proces zostanie uruchomiony. Kiedy zajdzie potrzeba wybrania nowego procesu &#8211; należy powtórzyć tą procedurę.</p>
+<ul>
+<li>Liczby 1,2,3,4,5 wypadają na procesie #1</li>
+<li>Liczby 6,7,8 wypadają na procesie #2</li>
+<li>Liczby 9,10 na procesie #3</li>
+<li>A 11 na procesie #4</li>
+</ul>
+<p>Zakładając, że wylosowanie każdej liczby jest równo prawdopodobne &#8211; proces 1 ma aż 5/11 szans na bycie wylosowanym, więc po wielu losowaniach okaże się, że dostał znacznie więcej czasu procesora niż proces 4 którego szanse były 1/11. Wychodzi na to, że będzie to 5-krotna różnica.</p>
+<p>Dla przykładu załóżmy, że wylosowaną liczbą jest 8. Spowoduje to, że teraz uruchomionym procesem będzie proces #2. Na tym kończy się operacja wyboru procesu. Wylosowaliśmy, ustawiliśmy, gotowe.</p>
+<h1>Implementacja</h1>
+<h2><span id="more-42"></span></h2>
+<h2>Założenia implementacji</h2>
+<p>Do systemu należy dołożyć wywołanie umożliwiające zmianę ilości losów procesu oraz ich odczyt. Na potrzeby implementacji funkcje nazwiemy <em>setlot</em> i <em>getlot</em>.</p>
+<p>Szeregowaniu loteryjnemu podlegać będą jedynie procesy z grupy USER.</p>
+<h2>Dodatkowe zmienne</h2>
+<p>Niewątpliwe należy gdzieś zapisać liczbę losów każdego procesu. Myślę, że wybór miejsca będzie oczywisty &#8211; struktura <em>proc</em>. Przyjęliśmy, że liczba losów procesu może wahać się od 1 do 20. Zdecydowanie dobrym pomysłem będzie wykorzystanie zmiennej typu <em>unsigned char</em>. Na potrzeby zadania dodatkową wartość w strukturze nazwiemy <em>num_tickets</em> i umieścimy ją w pliku <em>/usr/src/kernel/proc.h</em></p>
+<p>Wyprzedzając jeszcze zagadnienie optymalizacji rozwiązania &#8211; powiem, że powinniśmy gdzieś przechowywać sumę losów procesów gotowych do wykonania. Ta liczba nie jest związana z procesem, a z całym narzędziem szeregującym, stąd warto umieścić ją w pliku w którym będziemy z niej najwięcej korzystać &#8211; <em>/usr/src/kernel/proc.c</em>. Wybierając typ, trzeba rozważyć minimalną i maksymalną wartość tej zmiennej. Minimum osiągniemy przy braku procesów (wtedy suma będzie równa 0), maksimum, gdy wszystkie procesy będą gotowe z maksymalną liczbą losów. Stała <em>NR_PROCS</em> podpowiada, że nie można uruchomić więcej procesów użytkownika niż 32. Stąd 20 * 32 = 640 &#8211; co spokojnie powinniśmy zamknąć w zmiennej <em>unsigned short</em>. Zmienną opisującą sumę losów procesów gotowych do wykonania nazwijmy <em>total_tickets</em>.</p>
+<h2>Optymalizacja</h2>
+<p>No właśnie. W całym tym rozwiązaniu jest kilka pułapek, które może nie spowodują, że nasz minix zacznie chodzić jak Windows Vista, ale na pewno ujmą mu trochę piękna i szyku.</p>
+<h3>Przechowywana globalnie suma losów procesów gotowych</h3>
+<p>Gdyby nie ona, przy każdym wyborze procesu konieczne byłoby przejrzenie całej listy procesów gotowych. Jest to prawdopodobnie strata czasu, szczególnie, że proces staje się gotowy lub niegotowy tylko przez funkcje <em>ready</em> i <em>unready</em>. W nich należy więc zawrzeć dodawanie i odejmowanie ilości losów procesu od globalnej zmiennej <em>total_tickets</em>. Jest jeszcze jedno miejsce, gdzie coś się dzieje. Jest to <em>setlot</em>. W tej funkcji należy sprawdzić, czy proces jest gotowy (bo jeśli nie jest, to jego liczba losów nie jest w żaden sposób na liście) i jeśli tak &#8211; dodać / odjąć różnicę losów. Jeśli proces miał ich 10, a teraz ma mieć 8 i do tego jest gotowy &#8211; należy odjąć 2 losy od listy. Łatwym rozwiązaniem może też okazać się wywołanie <em>unready</em>, zmiana ilości losów, <em>ready.</em></p>
+<h3>Kolejność procesów na liście gotowych</h3>
+<p>Kiedy zajdzie potrzeba wybrania procesu &#8211; musimy <em>&#8222;przelecieć&#8221;</em> (jakkolwiek okrutnie to brzmi) listę procesów, aby znaleźć ten wybrany. To, czy procesy są posortowane, czy nie &#8211; w żaden sposób nie wpłynie na prawdopodobieństwo wylosowania któregokolwiek z nich. Wpływa to jedna na czas wykonania wyszukiwania. Minix to nie życie, tutaj chcemy przelecieć w jak najkrótszym czasie.</p>
+<p>Procesy na liście powinny być ułożone według nierosnącej liczy losów. Dlaczego? Załóżmy, że mamy procesy z takimi liczbami losów: 10, 9, 8, 7, 1, 1, 1, 1. Wylosowaliśmy liczbę 15. Przykładowy algorytm wyszukujący proces &#8211; sprawdzi czy liczba wylosowana jest mniejsza bądź równa ilości losów procesu &#8211; jeśli tak, wybierze go, jeśli nie &#8211; odejmie jego ilość od wylosowanej liczby i skoczy na następny oraz zacznie od początku.</p>
+<p>Wyobraźmy sobie teraz układ najgorszy &#8211; procesy są w kolejności 1, 1, 1, 1, 7, 8, 9, 10. Liczba wylosowana to 15. Sprawdzenie -&gt; Odjęcie -&gt; Skok, Sprawdzenie -&gt; Odjęcie -&gt; Skok, itp&#8230; Musimy przeskoczyć 1, 1, 1, 1, 7, aby ostatecznie wybrać 8. Razem należało wykonać 5 skoków.</p>
+<p>A teraz weźmy układ posortowany. Wyszukiwanie zatrzyma się już na drugiej liczbie: 10, stop na 9. Nie jest to żaden przypadek szczególny. W przypadku małej ilości procesów, czy małej liczbie wylosowanej &#8211; różnica wydajności będzie niewielka. Wraz ze wzrostem tych liczb &#8211; będzie rosła.</p>
+<p>Kiedy zadbać o porządek na liście? Wyłącznie przy dodawaniu / usuwaniu / modyfikowaniu rekordu na liście &#8211; w funkcjach <em>ready</em>, <em>unready</em>, <em>setlot</em>.</p>
+<h2>Implementacja w jądrze:</h2>
+<p>Zajmiemy się teraz implementacją w/w algorytmu w jądrze systemu minix, plik po pliku.</p>
+<p>Będziemy potrzebowali funkcji dostępnych z poziomu programu użytkownika służących do pobrania i ustawienia ilości losów dla procesu. Te funkcje obsługuje kernel, do którego jednak, jako program, nie mamy dostępu. W związku z tym te wywołania muszą być obsłużone pośrednio poprzez moduł <em>MM</em> lub <em>FS</em>. Postawiłem na <em>MM</em>.</p>
+<h3>/usr/src/kernel/proto.h</h3>
+<p>Aby ułatwić sobie życie stworzymy sobie funkcję która sprawdzi nam, czy zadany proces znajduje się na liście gotowych. W pliku <em>proto.h</em> dodamy jej prototyp (deklarację).</p>
+<p>Ponieważ będziemy implementować ją w pliku <em>proc.c</em> &#8211; prototyp dodajemy w wyznaczonej komentarzem sekcji (jest ona tylko dla zachowania porządku).</p>
+<pre>_PROTOTYPE( void printer_task, (void) );
+/* proc.c */
+<strong>_PROTOTYPE( unsigned short is_proc_ready, (struct proc * rp) );</strong>
+_PROTOTYPE( void interrupt, (int task) );</pre>
+<h3>/usr/src/kernel/proc.h</h3>
+<p>W tym pliku dodajemy do struktury procesu <em>proc</em> aktualną liczbę losów. Korzystamy z ustalonego wcześniej typu.</p>
+<pre>int p_sendto;
+
+<strong>unsigned char num_tickets; /* liczba ticketów w naszej loterii */</strong>
+struct proc *p_nextready; /* pointer to next ready process */</pre>
+<h3>/usr/src/kernel/main.c</h3>
+<p>Ten plik niejako tworzy i przygotowuje proces <em>INIT</em>. Jest to jedyny proces, który nie powstał przez <em>FORK</em> &#8211; z tego powodu musimy osobno ustalić mu numer losów. <span style="text-decoration: underline;">Ważne, aby nie dodawać tego na dole, tam gdzie ustalany jest <em>PID</em>, bo w tym miejscu ten proces przeszedł już przez ready.</span> Listę jego losów musimy ustalić przed pętlą w której wywoływane jest ready.</p>
+<pre>*/
+<strong>proc[NR_TASKS+INIT_PROC_NR].num_tickets = 1; /* Init się nie forkuje - manualnie ustawiamy mu liczbę losów na 1 */</strong>
+/* Task stacks. */
+ktsb = (reg_t) t_stack;</pre>
+<h3>/usr/include/minix/com.h</h3>
+<p>W tym pliku dodajemy numery wowołań, które będzie obsługiwało samo jądro.</p>
+<p>Wpisy dodajemy w okolicy końca wpisów SYS_</p>
+<pre># define SYS_GETLOT 22 /* fcn code for sys_getlot(proc) */
+# define SYS_SETLOT 23 /* fcn code for sys_setlot(proc, newlot) */</pre>
+<h3>/usr/src/kernel/system.c</h3>
+<p>W tym pliku dodamy prototypy właściwych już wywołań realizowanych przez jądro. Będą to <em>getlot</em> i <em>setlot</em>. Pomocnikiem będzie funkcja wyszukująca proces w tablicy na podstawie pidu i zwracająca wskazanie na niego.</p>
+<pre> FORWARD _PROTOTYPE( int do_findproc, (message *m_ptr) );
+<strong> _PROTOTYPE( struct proc * find_user_proc_by_pid, (pid_t) );</strong>
+<strong> FORWARD _PROTOTYPE( int do_getlot, (message *m_ptr) );</strong>
+<strong> FORWARD _PROTOTYPE( int do_setlot, (message *m_ptr) );</strong>
+ 
+ /*===========================================================================*</pre>
+<p>Tutaj zamiast tabeli, tak jak w modułach MM i FS stosowana jest lista case&#8217;ów. Dodajemy tam swoje:</p>
+<pre>case SYS_FINDPROC: r = do_findproc(&amp;m); break;
+<strong>case SYS_GETLOT: r = do_getlot(&amp;m); break;</strong>
+<strong>case SYS_SETLOT: r = do_setlot(&amp;m); break;</strong>
+default: r = E_BAD_FCN;</pre>
+<p>Następnie dodajemy (na przykład na końcu pliku) obsługę wywołań. Nie będę wklejał tu całego kodu. Jest on dobrze skomentowany w pliku: <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/system.c#L1031">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/system.c#L1031</a></p>
+<p>W tym pliku także zadbamy o ustalanie liczby losów dla nowych procesów. W systemie minix nowy proces może powstać wyłącznie poprzez wywołanie <em>FORK</em>. Znajdujemy więc kod obsługi wywołania i dodajemy w nim nadanie procesowi ustalonej ilości losów.</p>
+<pre>rpc-&gt;child_stime = 0;
+
+<strong>rpc-&gt;num_tickets = 1; /* initial number of tickets for lottery scheduling */</strong>
+
+return(OK);</pre>
+<h3>/usr/src/kernel/proc.c</h3>
+<p>Czyli właściwa implementacja.</p>
+<p>W tym pliku przechowujemy sumę losów procesów gotowych &#8211; ustaloną wcześniej jako <em>total_tickets</em>. Jest ona zadeklarowana poprzez:</p>
+<pre>PRIVATE unsigned char switching; /* nonzero to inhibit interrupt() */
+<strong>unsigned short total_tickets = 0; /* Na początku nie ma żadnego procesu, więc suma ticketów jest równa 0 */</strong>
+
+FORWARD _PROTOTYPE( int mini_send, (struct proc *caller_ptr, int dest,
+message *m_ptr) );</pre>
+<p>Tu dodana jest definicja funkcji sprawdzającej gotowość procesu: <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L49">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L49</a></p>
+<p>oraz zmodyfikowane wywołania:</p>
+<ul>
+<li>pick_proc &#8211; <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L318">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L318</a></li>
+<li>ready &#8211; <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L369">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L369</a></li>
+<li>unready &#8211; <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L437">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L437</a></li>
+<li>sched &#8211; <a href="https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L510">https://github.com/peku33/minix203-lottery-scheduling/blob/master/usr/src/kernel/proc.c#L510</a></li>
+</ul>
+<hr />
+<p>Teraz zajmiemy się wywołaniami dostępnymi z poziomu użytkownika poprzez moduły.</p>
+<h3>/usr/include/minix/callnr.h</h3>
+<p>W pliku /usr/include/minix/callnr.h który jest listą stałych których potem używamy w programie &#8211; zmieniamy liczbę dostępnych wywołań o 2 na plus.</p>
+<pre>#define NCALLS <strong>80</strong> /* number of system calls allowed */
+
+#define EXIT 1
+#define FORK 2
+#define READ 3</pre>
+<p>i dodajemy je na dole. u mnie nazywają się <em>GETLOT</em> oraz <em>SETLOT</em>.</p>
+<pre>#define REBOOT 76
+#define SVRCTL 77
+
+<strong>#define GETLOT 78</strong>
+<strong>#define SETLOT 79</strong></pre>
+<h3>/usr/src/fs/table.c</h3>
+<p>Musimy uzupełnić tabelę modułu <em>FS</em> o dwa wywołania. Nie są one jednak implementowane w tym module, więc zamiast nazw funkcji podajemy puste odwołania &#8211; <em>no_sys</em>.</p>
+<p>Na końcu tabeli dodajemy:</p>
+<pre>no_sys, /* 76 = REBOOT */
+do_svrctl, /* 77 = SVRCTL */
+
+<strong>no_sys, /* 78 = unused */</strong>
+<strong>no_sys, /* 79 = unued */</strong></pre>
+<h3>/usr/src/mm/table.c</h3>
+<p>Te funkcje są jednak obsługiwane przez <em>MM</em> &#8211; tu dodajemy rozwiązania ich nazw (że wywołanie numer 78 &lt;czyli 78 pozycja w tabeli&gt; to <em>getlot</em>, a 79 <em>setlot</em>)</p>
+<pre>do_reboot, /* 76 = reboot */
+do_svrctl, /* 77 = svrctl */
+
+<strong>do_getlot, /* 78 = getlot */</strong>
+<strong>do_setlot, /* 79 = setlot */</strong></pre>
+<h3>/usr/src/mm/proto.h</h3>
+<p>W tym pliku dodajemy prototypy funkcji <em>do_getlot</em> oraz <em>do_setlot</em>. Są / będą one w pliku main.c, więc dodajemy je do odpowiedniej sekcji.</p>
+<pre>/* main.c */
+_PROTOTYPE( void main, (void) );
+<strong>_PROTOTYPE( int do_getlot, (void) );</strong>
+<strong>_PROTOTYPE( int do_setlot, (void) );</strong></pre>
+<h3>/usr/src/mm/main.c</h3>
+<p>W reszcie finalna implementacja tych funkcji. Wszystko co mają one zrobić, to odwołać się prosto do jądra i zawołać przygotowane wcześniej przez nie funkcje systemowe. Doklejamy do na przykład na końcu.</p>
+<pre><strong>/*</strong>
+<strong>Funkcja do_getlot musi być wywołana bezpośrednio przez jądro</strong>
+<strong>@kernel/system.c</strong>
+<strong>*/</strong>
+<strong>PUBLIC int do_getlot()</strong>
+<strong>{</strong>
+<strong>        message m = mm_in;</strong>
+<strong>        return _taskcall(SYSTASK, SYS_GETLOT, &amp;m);</strong>
+<strong>}</strong>
+<strong>/*</strong>
+<strong>Funkcja do_setlot musi być wywołana bezpośrednio przez jądro</strong>
+<strong>@kernel/system.c</strong>
+<strong>*/</strong>
+<strong>PUBLIC int do_setlot()</strong>
+<strong>{</strong>
+<strong>        message m = mm_in;</strong>
+<strong>        return _taskcall(SYSTASK, SYS_SETLOT, &amp;m);</strong>
+<strong>}</strong></pre>
+<h2>Implementacja publicznego interfejsu</h2>
+<p>Aby użytkownik końcowy, zamiast wykorzystywać jakieś skomplikowane syscalle czy inne takie &#8211; mógł łatwo napisać sobie program &#8211; dodajemy nowy plik <em>.h</em> do <em>/usr/include/</em> który użytkownik będzie mógł sobie dołączyć poprzez #include.</p>
+<h3>/usr/include/lottery.h</h3>
+<p>Ten plik definiuje publicznie dostępne funkcje <em>getlot</em> oraz <em>setlot</em>.</p>
+<p>Komentarze, zwracane wartości itp są opisane w środku.</p>
+<p>Aby dołączyć plik w dowolnym programie &#8211; wystarczy wykonać</p>
+<pre>#include &lt;lottery.h&gt;</pre>
+<p>Dodaje nam on w programie dodatkowe funkcje:</p>
+<pre><span class="pl-s">int</span> <span class="pl-enf">getlot</span>(<span class="pl-st">pid_t</span> pid);
+<span class="pl-s">int</span> <span class="pl-enf">setlot</span>(<span class="pl-st">pid_t</span> pid, <span class="pl-s">unsigned</span> <span class="pl-s">short</span> new_lot);</pre>
+<h2>Implementacja testowania:</h2>
+<p>Testowanie składa się z dwóch części.</p>
+<h3>/usr/sched_test/test.sh</h3>
+<p>Skrypt w shellu który równocześnie uruchomi dwie instancje programu test, odpowiednio z priorytetami 1 oraz 10 oraz zmierzy im czas.</p>
+<h3>/usr/sched_test/test.c</h3>
+<p>Program test którego celem jest:</p>
+<ul>
+<li>Uruchomić się</li>
+<li>Nadać sobie priorytet zadany przez parametr uruchomieniowy</li>
+<li>Wykonać dużo ciężkich i długich operacji, co jaki czas informując o postępach.</li>
+<li>Zakończyć żywot</li>
+</ul>
+<p>Program uruchamiamy poprzez ./test PRIORYTET</p>
+<h2>Cały projekt na GitHubie:</h2>
+<p><a href="https://github.com/peku33/minix203-lottery-scheduling">https://github.com/peku33/minix203-lottery-scheduling</a></p>
+<p>&nbsp;</p>
+<h1><img class="aligncenter wp-image-57 size-full" src="http://blog.peku33.net/wp-content/uploads/2014/11/G6Yax1.png" alt="G6Yax[1]" width="507" height="382" srcset="https://blog.peku33.net/wp-content/uploads/2014/11/G6Yax1.png 507w, https://blog.peku33.net/wp-content/uploads/2014/11/G6Yax1-300x226.png 300w" sizes="(max-width: 507px) 100vw, 507px" /></h1>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			Wpis opublikowany w <a href="https://blog.peku33.net/category/linux/minix/" rel="category tag">Minix</a>, <a href="https://blog.peku33.net/category/programowanie-coding/" rel="category tag">Programowanie / Coding</a> i otagowany <a href="https://blog.peku33.net/tag/lottery-scheduling/" rel="tag">lottery scheduling</a>, <a href="https://blog.peku33.net/tag/minix-2/" rel="tag">minix</a>, <a href="https://blog.peku33.net/tag/pw/" rel="tag">PW</a>, <a href="https://blog.peku33.net/tag/soi/" rel="tag">SOI</a> <a href="https://blog.peku33.net/szeregowanie-loteryjne-w-systemie-minix/" title="23:59" rel="bookmark"><time class="entry-date" datetime="2014-11-12T23:59:26+00:00">12 listopada 2014</time></a><span class="by-author"> przez <span class="author vcard"><a class="url fn n" href="https://blog.peku33.net/author/peku33/" title="Zobacz wszystkie wpisy, których autorem jest peku33" rel="author">peku33</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Zobacz wpisy</h3>
+					<span class="nav-previous"><a href="https://blog.peku33.net/allwiner-a23-android-partitions/" rel="prev"><span class="meta-nav">&larr;</span> Allwinner A23 Android partitions</a></span>
+					<span class="nav-next"><a href="https://blog.peku33.net/chinese-techincal-thought/" rel="next">Chinese techincal thought <span class="meta-nav">&rarr;</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Dodaj komentarz <small><a rel="nofollow" id="cancel-comment-reply-link" href="/szeregowanie-loteryjne-w-systemie-minix/#respond" style="display:none;">Anuluj pisanie odpowiedzi</a></small></h3>			<form action="https://blog.peku33.net/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<p class="comment-notes"><span id="email-notes">Twój adres email nie zostanie opublikowany.</span> Pola, których wypełnienie jest wymagane, są oznaczone symbolem <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Komentarz</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Podpis <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">Witryna internetowa</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Opublikuj komentarz" /> <input type='hidden' name='comment_post_ID' value='42' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="69c9fc1e4e" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="74"/></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-3" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="https://blog.peku33.net/">
+				<div>
+					<label class="screen-reader-text" for="s">Szukaj:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Szukaj" />
+				</div>
+			</form></aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Kategorie</h3>		<ul>
+	<li class="cat-item cat-item-1"><a href="https://blog.peku33.net/category/bez-kategorii/" >Bez kategorii</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="https://blog.peku33.net/category/elektronika-electronics/" >Elektronika / Electronics</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="https://blog.peku33.net/category/linux/" title="Moje przygody z systemem linux">Linux</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="https://blog.peku33.net/category/linux/minix/" >Minix</a>
+</li>
+	<li class="cat-item cat-item-99"><a href="https://blog.peku33.net/category/elektronika-electronics/pcb-prototyping-and-manufacturers/" >PCB Prototyping and Manufacturers</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="https://blog.peku33.net/category/programowanie-coding/" >Programowanie / Coding</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://blog.peku33.net/category/q8h/" >Q8H Aliexpress Tablet</a>
+</li>
+		</ul>
+</aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archiwa</h3>		<ul>
+			<li><a href='https://blog.peku33.net/2017/12/'>Grudzień 2017</a></li>
+	<li><a href='https://blog.peku33.net/2017/02/'>Luty 2017</a></li>
+	<li><a href='https://blog.peku33.net/2016/12/'>Grudzień 2016</a></li>
+	<li><a href='https://blog.peku33.net/2016/10/'>Październik 2016</a></li>
+	<li><a href='https://blog.peku33.net/2016/06/'>Czerwiec 2016</a></li>
+	<li><a href='https://blog.peku33.net/2016/04/'>Kwiecień 2016</a></li>
+	<li><a href='https://blog.peku33.net/2016/03/'>Marzec 2016</a></li>
+	<li><a href='https://blog.peku33.net/2016/01/'>Styczeń 2016</a></li>
+	<li><a href='https://blog.peku33.net/2015/10/'>Październik 2015</a></li>
+	<li><a href='https://blog.peku33.net/2015/09/'>Wrzesień 2015</a></li>
+	<li><a href='https://blog.peku33.net/2015/04/'>Kwiecień 2015</a></li>
+	<li><a href='https://blog.peku33.net/2015/03/'>Marzec 2015</a></li>
+	<li><a href='https://blog.peku33.net/2015/02/'>Luty 2015</a></li>
+	<li><a href='https://blog.peku33.net/2015/01/'>Styczeń 2015</a></li>
+	<li><a href='https://blog.peku33.net/2014/12/'>Grudzień 2014</a></li>
+	<li><a href='https://blog.peku33.net/2014/11/'>Listopad 2014</a></li>
+		</ul>
+		</aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tagi</h3><div class="tagcloud"><ul class='wp-tag-cloud' role='list'>
+	<li><a href="https://blog.peku33.net/tag/aliexpress/" class="tag-cloud-link tag-link-62 tag-link-position-1" style="font-size: 17.333333333333pt;" aria-label="aliexpress (4 elementów)">aliexpress</a></li>
+	<li><a href="https://blog.peku33.net/tag/allwinner-a23/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 22pt;" aria-label="allwinner a23 (7 elementów)">allwinner a23</a></li>
+	<li><a href="https://blog.peku33.net/tag/android-paritions/" class="tag-cloud-link tag-link-10 tag-link-position-3" style="font-size: 12.2pt;" aria-label="android paritions (2 elementów)">android paritions</a></li>
+	<li><a href="https://blog.peku33.net/tag/automatic/" class="tag-cloud-link tag-link-29 tag-link-position-4" style="font-size: 8pt;" aria-label="automatic (1 element)">automatic</a></li>
+	<li><a href="https://blog.peku33.net/tag/avr/" class="tag-cloud-link tag-link-40 tag-link-position-5" style="font-size: 8pt;" aria-label="avr (1 element)">avr</a></li>
+	<li><a href="https://blog.peku33.net/tag/bash/" class="tag-cloud-link tag-link-37 tag-link-position-6" style="font-size: 8pt;" aria-label="bash (1 element)">bash</a></li>
+	<li><a href="https://blog.peku33.net/tag/cheap/" class="tag-cloud-link tag-link-79 tag-link-position-7" style="font-size: 12.2pt;" aria-label="cheap (2 elementów)">cheap</a></li>
+	<li><a href="https://blog.peku33.net/tag/china/" class="tag-cloud-link tag-link-61 tag-link-position-8" style="font-size: 19.2pt;" aria-label="china (5 elementów)">china</a></li>
+	<li><a href="https://blog.peku33.net/tag/cm/" class="tag-cloud-link tag-link-26 tag-link-position-9" style="font-size: 8pt;" aria-label="cm (1 element)">cm</a></li>
+	<li><a href="https://blog.peku33.net/tag/cyanogenmod/" class="tag-cloud-link tag-link-25 tag-link-position-10" style="font-size: 12.2pt;" aria-label="cyanogenmod (2 elementów)">cyanogenmod</a></li>
+	<li><a href="https://blog.peku33.net/tag/czujnik-ct/" class="tag-cloud-link tag-link-23 tag-link-position-11" style="font-size: 8pt;" aria-label="czujnik ct (1 element)">czujnik ct</a></li>
+	<li><a href="https://blog.peku33.net/tag/ds18b20/" class="tag-cloud-link tag-link-22 tag-link-position-12" style="font-size: 12.2pt;" aria-label="ds18b20 (2 elementów)">ds18b20</a></li>
+	<li><a href="https://blog.peku33.net/tag/ds1820/" class="tag-cloud-link tag-link-21 tag-link-position-13" style="font-size: 8pt;" aria-label="ds1820 (1 element)">ds1820</a></li>
+	<li><a href="https://blog.peku33.net/tag/expander-gsm/" class="tag-cloud-link tag-link-19 tag-link-position-14" style="font-size: 8pt;" aria-label="Expander GSM (1 element)">Expander GSM</a></li>
+	<li><a href="https://blog.peku33.net/tag/flashing/" class="tag-cloud-link tag-link-6 tag-link-position-15" style="font-size: 12.2pt;" aria-label="flashing (2 elementów)">flashing</a></li>
+	<li><a href="https://blog.peku33.net/tag/g/" class="tag-cloud-link tag-link-41 tag-link-position-16" style="font-size: 8pt;" aria-label="g++ (1 element)">g++</a></li>
+	<li><a href="https://blog.peku33.net/tag/gcc/" class="tag-cloud-link tag-link-42 tag-link-position-17" style="font-size: 8pt;" aria-label="gcc (1 element)">gcc</a></li>
+	<li><a href="https://blog.peku33.net/tag/html/" class="tag-cloud-link tag-link-86 tag-link-position-18" style="font-size: 12.2pt;" aria-label="html (2 elementów)">html</a></li>
+	<li><a href="https://blog.peku33.net/tag/image/" class="tag-cloud-link tag-link-8 tag-link-position-19" style="font-size: 8pt;" aria-label="image (1 element)">image</a></li>
+	<li><a href="https://blog.peku33.net/tag/imgrepacker/" class="tag-cloud-link tag-link-9 tag-link-position-20" style="font-size: 8pt;" aria-label="imgrepacker (1 element)">imgrepacker</a></li>
+	<li><a href="https://blog.peku33.net/tag/integral/" class="tag-cloud-link tag-link-24 tag-link-position-21" style="font-size: 8pt;" aria-label="integral (1 element)">integral</a></li>
+	<li><a href="https://blog.peku33.net/tag/kompilacja/" class="tag-cloud-link tag-link-44 tag-link-position-22" style="font-size: 8pt;" aria-label="kompilacja (1 element)">kompilacja</a></li>
+	<li><a href="https://blog.peku33.net/tag/lottery-scheduling/" class="tag-cloud-link tag-link-16 tag-link-position-23" style="font-size: 8pt;" aria-label="lottery scheduling (1 element)">lottery scheduling</a></li>
+	<li><a href="https://blog.peku33.net/tag/manufacturing/" class="tag-cloud-link tag-link-101 tag-link-position-24" style="font-size: 12.2pt;" aria-label="manufacturing (2 elementów)">manufacturing</a></li>
+	<li><a href="https://blog.peku33.net/tag/megaelektronik/" class="tag-cloud-link tag-link-20 tag-link-position-25" style="font-size: 8pt;" aria-label="megaelektronik (1 element)">megaelektronik</a></li>
+	<li><a href="https://blog.peku33.net/tag/minix-2/" class="tag-cloud-link tag-link-15 tag-link-position-26" style="font-size: 12.2pt;" aria-label="minix (2 elementów)">minix</a></li>
+	<li><a href="https://blog.peku33.net/tag/optymalizacja/" class="tag-cloud-link tag-link-43 tag-link-position-27" style="font-size: 8pt;" aria-label="optymalizacja (1 element)">optymalizacja</a></li>
+	<li><a href="https://blog.peku33.net/tag/pcb/" class="tag-cloud-link tag-link-64 tag-link-position-28" style="font-size: 22pt;" aria-label="pcb (7 elementów)">pcb</a></li>
+	<li><a href="https://blog.peku33.net/tag/phoenixusb/" class="tag-cloud-link tag-link-7 tag-link-position-29" style="font-size: 8pt;" aria-label="phoenixusb (1 element)">phoenixusb</a></li>
+	<li><a href="https://blog.peku33.net/tag/phpmyadmin/" class="tag-cloud-link tag-link-28 tag-link-position-30" style="font-size: 8pt;" aria-label="phpMyAdmin (1 element)">phpMyAdmin</a></li>
+	<li><a href="https://blog.peku33.net/tag/pma/" class="tag-cloud-link tag-link-27 tag-link-position-31" style="font-size: 8pt;" aria-label="pma (1 element)">pma</a></li>
+	<li><a href="https://blog.peku33.net/tag/prototype/" class="tag-cloud-link tag-link-100 tag-link-position-32" style="font-size: 12.2pt;" aria-label="prototype (2 elementów)">prototype</a></li>
+	<li><a href="https://blog.peku33.net/tag/prototyping/" class="tag-cloud-link tag-link-63 tag-link-position-33" style="font-size: 17.333333333333pt;" aria-label="prototyping (4 elementów)">prototyping</a></li>
+	<li><a href="https://blog.peku33.net/tag/pw/" class="tag-cloud-link tag-link-14 tag-link-position-34" style="font-size: 8pt;" aria-label="PW (1 element)">PW</a></li>
+	<li><a href="https://blog.peku33.net/tag/q8h-2/" class="tag-cloud-link tag-link-3 tag-link-position-35" style="font-size: 22pt;" aria-label="q8h (7 elementów)">q8h</a></li>
+	<li><a href="https://blog.peku33.net/tag/qemu/" class="tag-cloud-link tag-link-38 tag-link-position-36" style="font-size: 8pt;" aria-label="qemu (1 element)">qemu</a></li>
+	<li><a href="https://blog.peku33.net/tag/review/" class="tag-cloud-link tag-link-96 tag-link-position-37" style="font-size: 19.2pt;" aria-label="review (5 elementów)">review</a></li>
+	<li><a href="https://blog.peku33.net/tag/rom/" class="tag-cloud-link tag-link-5 tag-link-position-38" style="font-size: 20.833333333333pt;" aria-label="rom (6 elementów)">rom</a></li>
+	<li><a href="https://blog.peku33.net/tag/rozmiar/" class="tag-cloud-link tag-link-45 tag-link-position-39" style="font-size: 8pt;" aria-label="rozmiar (1 element)">rozmiar</a></li>
+	<li><a href="https://blog.peku33.net/tag/script/" class="tag-cloud-link tag-link-31 tag-link-position-40" style="font-size: 8pt;" aria-label="script (1 element)">script</a></li>
+	<li><a href="https://blog.peku33.net/tag/services/" class="tag-cloud-link tag-link-107 tag-link-position-41" style="font-size: 12.2pt;" aria-label="services (2 elementów)">services</a></li>
+	<li><a href="https://blog.peku33.net/tag/soi/" class="tag-cloud-link tag-link-13 tag-link-position-42" style="font-size: 12.2pt;" aria-label="SOI (2 elementów)">SOI</a></li>
+	<li><a href="https://blog.peku33.net/tag/strip/" class="tag-cloud-link tag-link-46 tag-link-position-43" style="font-size: 8pt;" aria-label="strip (1 element)">strip</a></li>
+	<li><a href="https://blog.peku33.net/tag/tutorial/" class="tag-cloud-link tag-link-51 tag-link-position-44" style="font-size: 15pt;" aria-label="tutorial (3 elementów)">tutorial</a></li>
+	<li><a href="https://blog.peku33.net/tag/update/" class="tag-cloud-link tag-link-30 tag-link-position-45" style="font-size: 8pt;" aria-label="update (1 element)">update</a></li>
+</ul>
+</div>
+</aside>		<aside id="recent-posts-4" class="widget widget_recent_entries">		<h3 class="widget-title">Najnowsze wpisy</h3>		<ul>
+											<li>
+					<a href="https://blog.peku33.net/jlcpcb-com-the-best-value-for-money-pcb-service-in-2017/">JLCPCB.com &#8211; The best value for money PCB Service in 2017</a>
+											<span class="post-date">1 grudnia 2017</span>
+									</li>
+											<li>
+					<a href="https://blog.peku33.net/seeedstudio-com-fusion-new-pcb-services-from-popular-diy-and-prototyping-company/">SeeedStudio.com Fusion &#8211; New PCB Services from popular DIY and prototyping company</a>
+											<span class="post-date">1 lutego 2017</span>
+									</li>
+											<li>
+					<a href="https://blog.peku33.net/dangerous-prototypes-pcb-manufacturer-review/">Dangerous Prototypes &#8211; PCB Manufacturer Review</a>
+											<span class="post-date">5 grudnia 2016</span>
+									</li>
+											<li>
+					<a href="https://blog.peku33.net/dirtypcbs-com-pcb-prototyping-review/">DirtyPCBS.com &#8211; PCB Prototyping review</a>
+											<span class="post-date">5 grudnia 2016</span>
+									</li>
+											<li>
+					<a href="https://blog.peku33.net/stm32-prices-list-by-model-from-aliexpress/">STM32 Prices list by model (from AliExpress)</a>
+											<span class="post-date">2 października 2016</span>
+									</li>
+					</ul>
+		</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="https://pl.wordpress.org/" title="Semantyczna, osobista platforma publikacyjna">Dumnie wspierane przez WordPressa</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://blog.peku33.net/wp-includes/js/comment-reply.min.js?ver=4.9.1'></script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-content/themes/twentytwelve/js/navigation.js?ver=20140711'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var i18n_mtli = {"hidethings":"1","enable_async":"","enable_async_debug":"","avoid_selector":".wp-caption"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-content/plugins/mimetypes-link-icons/js/mtli-str-replace.min.js?ver=3.1.0'></script>
+<script type='text/javascript' src='https://blog.peku33.net/wp-includes/js/wp-embed.min.js?ver=4.9.1'></script>
+<script async="async" type='text/javascript' src='https://blog.peku33.net/wp-content/plugins/akismet/_inc/form.js?ver=4.0.1'></script>
+</body>
+</html>

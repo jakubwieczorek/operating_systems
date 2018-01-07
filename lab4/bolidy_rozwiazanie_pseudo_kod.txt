@@ -1,0 +1,92 @@
+ STAŁE:
+ N //liczba wszystkich bolidów}
+ K //liczba miejsc w alei serwisowej
+ P //wartość progowa do ustalenia priorytetu 
+ L //max liczba tankowań
+ 
+ ZMIENNE (współdzielone):
+ int wAlei = 0
+ int gotowyDoWyjazdu = 0;
+ int gotowyDoWjazdu = 0;
+ int wolnyPasSerwisowy = true;
+ 
+ SEMAFORY:
+ binarny dostep; //semafor zarządzający dostępem do zmiennych współdzielonych
+ binarny pasDlaWyjazdu; 
+ binarny pasDlaWjazdu;
+ 
+ bolid(){
+	liczbaTankowan = 0
+	while(liczbaTankowan < L) { 
+		jazdaPoTorze();
+		
+		dostep.P();
+		if(wolnyPasSerwisowy && wAlei < K) {  //jeśli pas wolny i jest miejsce to w alei to zajmij pas
+			wolnyPasSerwisowy = false;
+			dostep.V();
+		} else { //jeśli nie to ustaw się w kolejce do wjazdu
+			gotowyDoWjazdu++;
+			dostep.V();
+			pasDlaWjazdu.P();
+		}
+		
+		zjazdDoBoksu();
+		
+		dostep.P();
+		wAlei++;
+		zwolnijPasSerwisowy();
+		dostep.V();
+		
+		postój();
+		
+		dostep.P();
+		if(wolnyPasSerwisowy){
+			wolnyPasSerwisowy = false;
+			dostep.V();
+		} else {
+			gotowyDoWyjazdu++;
+			dostep.V();
+			pasDlaWyjazdu.V();
+		}
+		
+		wyjazd();
+		
+		dostep.P();
+		wAlei--;
+		zwolnijPasSerwisowy();
+		dostep.V();
+	}
+ 
+ }
+ 
+ 
+ zwolnijPasSerwisowy(){
+ 
+	if(wAlei < P ) {  //priorytet dla wjeżdzających
+		if(gotowyDoWjazdu > 0){ //jesli istnieje ktoś kto chce wyjechać to puszczamy,
+			gotowyDoWjazdu--;
+			pasDlaWjazdu.V()
+		} else if(gotowyDoWyjazdu > 0) { //jeśli nie to jesli isntieje ktoś kto chce wjechać to puszczamy
+			gotowyDoWyjazdu--;
+			pasDlaWjazdu.V();
+		} else { // jeśli nie to pas wolny (pusty), moze zostac zajety przez dowolny pierwszy bolid ktory będzie chciał wjechać
+			wolnyPasSerwisowy = true;
+		}
+	} else { //priorytet dla wyjeżdzających, analogicznie
+		if(gotowyDoWyjazdu > 0) { 
+		 	gotowyDoWyjazdu--;
+			pasDlaWjazdu.V();
+		}
+		else if (gotowyDoWjazdu > 0){
+			gotowyDoWjazdu--;
+			pasDlaWjazdu.V()
+		} else {
+			wolnyPasSerwisowy = true;
+		}
+	} 
+	
+	
+ }
+ 
+ 
+ Komentarz: Można zamienić semafory binarne pasDlaWjazdu i pasDlaWyjazdu na semafory licznikowe i z nich odczywyać liczbę bolidów oczekujących (można usunąć zmienne gotowyDoWjazdu i gotowyDoWyjazdu)

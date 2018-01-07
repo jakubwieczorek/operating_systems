@@ -1,0 +1,6 @@
+59 path=SOI lab pack 12Z/Lab 6 - system plików/4/test.txt
+27 mtime=1362651875.450543
+27 ctime=1362651877.093607
+27 atime=1362651884.333306
+123 LIBARCHIVE.xattr.user.xdg.referrer.url=aHR0cDovL21pb24uZWxrYS5wdy5lZHUucGwvfmtyb2dhbGEvbWlzYy9QUk9KRUtUWS9TT0kvemFkNi8
+126 LIBARCHIVE.xattr.user.xdg.origin.url=aHR0cDovL21pb24uZWxrYS5wdy5lZHUucGwvfmtyb2dhbGEvbWlzYy9QUk9KRUtUWS9TT0kvemFkNi90ZXN0

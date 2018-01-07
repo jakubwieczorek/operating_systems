@@ -11,9 +11,9 @@ using namespace std;
 // do testowania: 2, 1, 2, 1; 3, 1, 2, 1; 3, 2, 2, 1; 4, 5, 2, 2; 4, 3, 2, 2; 5, 4, 2, 3
 
 #define N 3 //
-#define K 1 // K stanowisk serwisowych
+#define K 2 // K stanowisk serwisowych
 #define L 2 // liczba tankowan
-#define P 1 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace
+#define P 1 // priorytet: jezeli inService < P wtedy priorytet maja wjezdajace w.p.p wyjezdajace ale gdy sa np. 2 miejsca a priorytet jest 1 i nikt nie chce wyjechac to moga wjechac mimo ze przekroczy P
 
 Monitor monitor; // jeden monitor bo tylko jeden wspodzielony zasob gdzie moze byc tylko jeden watek na raz - pas
 bool isServicePassFree = true;
@@ -71,8 +71,8 @@ void freeServicePass()
 		if(waitingAmountToLeaveC.signal()) // jesli ktos chce wyjechac
 		{
 			monitor.enter();
-		} else if(inService < K && waitingAmountToEnterC.signal()) // gdy nikt nie chce wyjechac
-		{	cout<<"HELLO ZIOM MASZ BUGA"<<endl;
+		} else if(inService < K && waitingAmountToEnterC.signal()) // gdy nikt nie chce wyjechac i jest miejsce
+		{	// cout<<endl<<endl<<"Bo nikt nie chce wyjechac i jest miejsce"<<endl<<endl;
 			monitor.enter();
 		}
 	}
@@ -100,16 +100,17 @@ void bolid(int aBolidId)
 		if(isServicePassFree && inService < K)
 		{
 			isServicePassFree = false;
-			
+			monitor.leave(); // bo wykonalismy juz operacje na zmiennej wspoldzielonej	
 		} else // jesli nie to ustaw sie w kolejce do wjazdu
 		{	
-			cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
+		 	// cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
 			monitor.wait(waitingAmountToEnterC);	
-			cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
+			// cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
+			monitor.leave();
 		}
 
 		driveDown(aBolidId); // zjezdza
-
+		monitor.enter();
 		inService++; // zjechal i zajal stanowisko			
 		freeServicePass(); // zwolnij pas i powiadom albo wjezdzajacych albo wyjezdzajacych w zaleznosci od priorytetu
 		
@@ -123,15 +124,18 @@ void bolid(int aBolidId)
 		if(isServicePassFree)
 		{
 			isServicePassFree = false;
+			monitor.leave();
 		} else
 		{
-			cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
+			// cout<<endl<<endl<<"1czekam:         (Bolid "<<aBolidId<<")"<<endl<<endl;
 			monitor.wait(waitingAmountToLeaveC);
-			cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
+			// cout<<endl<<endl<<"1juz nie czekam: (Bolid "<<aBolidId<<")"<<endl<<endl;
+			monitor.leave();
 		}
 
 		driveOut(aBolidId); // wyjezdza
 	
+		monitor.enter();
 		inService--;
 		freeServicePass();
 			

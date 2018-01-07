@@ -1,0 +1,4 @@
+65 path=SOI lab pack 12Z/Lab 6 - system plików/1/Plik 1,5kB.txt
+27 mtime=1358281815.636544
+28 ctime=1360795182.6510624
+27 atime=1362651319.256133

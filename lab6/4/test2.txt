@@ -1,0 +1,12 @@
+#!/bin/sh
+
+act=2;
+
+while [ $act -ne 200 ]; do
+  ./a.out -r "plik$act";
+  if [ $? -ne 0 ]; then
+    echo "Error by plik$act";
+    exit 1;
+  fi
+  act=`expr $act + 2`;
+done

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+cc create.c copy.c misc.c remove.c main.c
+
+cp maly plik0
+./a.out -c 40960
+act=1;
+prev=0;
+while [ $act -ne 200 ]; do
+  mv "plik$prev" "plik$act";
+  ./a.out -v "plik$act";
+  if [ $? -ne 0 ]; then
+    echo "Error by file plik$act\n";
+    exit 1;
+  fi
+  prev=$act;
+  act=`expr $act + 1`;
+done;

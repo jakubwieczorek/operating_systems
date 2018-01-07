@@ -1,1 +1,0 @@
-/usr/bin/cc  -g   CMakeFiles/problem2.dir/main.c.o  -o problem2 
