@@ -119,6 +119,7 @@ void bolid(int aBolidId)
 		freeServicePass();
 		inService--;
 			
+		// do poprawy: jednoczesnie wjezdza i wyjezdza powinien tylko jeden na raz
 		monitor.signal(waitingAmountToEnterC);
 		monitor.signal(waitingAmountToLeaveC);
 		//cout<<"siema1, "<<aBolidId<<endl;	
