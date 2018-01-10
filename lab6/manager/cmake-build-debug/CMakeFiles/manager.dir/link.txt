@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/manager.dir/main.cpp.o CMakeFiles/manager.dir/MemoryManager.cpp.o  -o manager 

@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.cpp
+MemoryManager.h
+/home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
+iostream
+-
+fstream
+-
+
+/home/jakub/Dokumenty/soi/lab6/manager/main.cpp
+iostream
+-
+cstdarg
+-
+MemoryManager.h
+/home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
+main.h
+/home/jakub/Dokumenty/soi/lab6/manager/main.h
+sstream
+-
+
+/home/jakub/Dokumenty/soi/lab6/manager/main.h
+

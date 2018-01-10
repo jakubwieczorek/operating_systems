@@ -1,0 +1,40 @@
+Projekt z systemu plików, prowadzący: K. Chabko.
+Wersja standardowa, taka jak opisana w skrypcie laboratoryjnym.
+
+/***********************************************************
+* Uwaga: Wrzucam projekt tylko poglądowo, aby było się na  *
+* czym wzorować. Wszyscy, którzy po prostu skopiują ten    *
+* kod i oddadzą jako swój własny, będą smażyć się w piekle *
+* przez całą wieczność.                                    *
+***********************************************************/
+
+Przykładowa sekwencja instrukcji demonstrująca działanie systemu:
+  1. Kompilujemy
+$ make
+  2. Tworzymy plik z wirtualnym dyskiem
+$ ./VirtualFS -f dysk -c 20
+  3. Utworzony zostanie wirtualny dysk w pliku o nazwie "dysk" o rozmiarze 20 kB
+  Wyswietlamy mape dysku:
+$ ./VirtualFS -f dysk -M
+  4. Wrzucamy pliki na dysk:
+$ ./VirtualFS -f dysk -u "Plik 1kB.txt"
+$ ./VirtualFS -f dysk -u "Plik 1,5kB.txt"
+$ ./VirtualFS -f dysk -u "Plik 2kB.txt"
+  5. Możemy znowu podejrzeć mapę dysku:
+$ ./VirtualFS -f dysk -M
+  6. Usuwamy jeden z plików:
+$ ./VirtualFS -f dysk -r "Plik 1,5kB.txt"
+  7. Zmieniamy nazwę pliku:
+$ ./VirtualFS -f dysk -m "Plik 2kB.txt" "Nowanazwa"
+  8. Pobieramy plik na lokalny dysk:
+$ ./VirtualFS -f dysk -d "Nowanazwa"
+  9. Wyswietlamy mapę dysku:
+$ ./VirtualFS -f dysk -M
+  10. Wyswietlamy listę plików:
+$ ./VirtualFS -f dysk -l
+
+W jaki sposób FS radzi sobie z fragmentacją?
+- Zazwyczaj przy wgrywaniu i usuwaniu plików ignoruje fragmentację. Dopiero gdy
+  przy ładowaniu pliku stwierdzi, że fragmentacja uniemożliwia wgranie nowego
+  pliku, wówczas woła funkcję deframent(), która przesuwa wszystkie pliki na sam 
+  pocżątek dysku. 
