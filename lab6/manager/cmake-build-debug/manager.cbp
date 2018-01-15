@@ -90,6 +90,30 @@
 		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h">
 			<Option target="manager"/>
 		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/Validator.h">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp">
+			<Option target="manager"/>
+		</Unit>
+		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h">
+			<Option target="manager"/>
+		</Unit>
 		<Unit filename="/home/jakub/Dokumenty/soi/lab6/manager/main.cpp">
 			<Option target="manager"/>
 		</Unit>

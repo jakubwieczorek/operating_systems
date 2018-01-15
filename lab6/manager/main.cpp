@@ -1,12 +1,11 @@
 #include<iostream>
-#include<cstdarg>
 #include"MemoryManager.h"
 #include"main.h"
-#include<sstream>
+#include "Validator.h"
 
 using namespace std;
 
-enum {EXIT, SHOW_MENU, CREATE_VIRTUAL_DISC, CMD_SIZE};
+enum {EXIT, SHOW_MENU, CREATE_VIRTUAL_DISC, ADD_FILE, CMD_SIZE};
 
 int main()
 {
@@ -18,7 +17,7 @@ int main()
 	menu();
 	while(1)
 	{
-        cmd = check("/1/ wyswietla menu >",2, -1, CMD_SIZE);
+        cmd = Validator::check("/1/ wyswietla menu >",2, -1, CMD_SIZE);
 
 		switch(cmd)
 		{
@@ -37,6 +36,11 @@ int main()
                 virtual_disk_menu(memoryManager);
                 break;
             }
+            case ADD_FILE:
+            {
+                add_file_menu(memoryManager);
+                break;
+            }
             default:
             {
                 menu();
@@ -53,78 +57,24 @@ int main()
 	return 0;
 }
 
+void add_file_menu(MemoryManager aManager)
+{
+    string disc_name = Validator::str("Nazwa dysku (bez formatu)> ", 1000);
+    string file_name = Validator::str("Nazwa pliku> ", 1000);
+
+    VirtualDisc* virtualDisc = aManager.openDisc(disc_name);
+
+    aManager.copyToDisc(*virtualDisc, file_name);
+}
+
 void virtual_disk_menu(MemoryManager aManager)
 {
-    string file_name;
+    string disc_name = Validator::str("Nazwa dysku (bez formatu)> ", 1000);
     long size;
 
-    str(file_name, "Nazwa dysku (bez formatu)> ", 20);
-    string text;
+    size = Validator::check("Rozmiar dysku (od 1 do 1024 * 100)> ", 2, 0, VirtualDisc::MAX_DISC_SIZE);
 
-   // stringstream strstream;
-   // strstream << "Rozmiar dysku (od 1 do " << aManager.getMaxDiskSize() << ")>";
-   // strstream >> text;
-
-    size = check("Rozmiar dysku (od 1 do 1024 * 100)> ", 2, 0, aManager.getMaxDiskSize());
-
-    aManager.createVirtualDisk(file_name, size);
-}
-
-void str(string &name, const char *msg, int a_size)
-{
-    while(true)
-    {
-        cout<<msg;
-        cin>>name;
-        if(name.size() <= a_size && name.size() >= 1)
-        {
-            break;
-        }
-        continue;
-    }
-}
-
-long check(const char *str, int n, ...)//n ilosc dodatkowych argumentow, pierwszy dod min drugi max.
-{
-    long to_check;
-
-	va_list ap;//tworzy zmienna ap typu va_list
-	va_start(ap, n);//udostępnia parametry znajdujące się po parametrze n
-
-	int min, max; //zmienne potrzebne do tego, że va_arg po każdym wywołaniu przesówa wskaźnik o jeden więc w przypadku pomyłki jest
-	//problem
-
-	min=va_arg(ap, int);
-	if(--n) max=va_arg(ap, int);// gdy chcemy ograniczyc z gory
-
-	while(true)
-	{
-		cin.clear();
-
-        cout<<str;//wyswietla wiadomosc z parametru
-		cin>>to_check;//pobiera wartosc do sprawdzenia
-
-		if(cin.fail())//jesli blad wprowadzenia
-		{
-            while(fgetc(stdin)!='\n');//czyszczenie bufora
-            cin.clear();
-            continue;
-		}
-
-		if(to_check<=min)
-		{continue;}//gdy jest mniejsze od minimum
-
-		if(n)
-		if(to_check>=max)
-		{continue;}//gdy jest wieksze od max
-
-		break;
-	}
-	va_end(ap);
-	while(cin.get()!='\n');//czyszczenie bufora
-	cin.clear();
-
-    return to_check;
+    aManager.createVirtualDisk(disc_name, size);
 }
 
 void menu()
@@ -133,6 +83,7 @@ void menu()
 	cout<<"$ Menu:"<<endl;
 	cout<<"$ "<<SHOW_MENU<<". Menu /"<<SHOW_MENU<<"/"<<endl;
 	cout<<"$ "<<CREATE_VIRTUAL_DISC<<". Stwórz wirtualny dysk /"<<CREATE_VIRTUAL_DISC<<"/"<<endl;
+	cout<<"$ "<<ADD_FILE<<". Skopiuj plik na dysk /"<<ADD_FILE<<"/"<<endl;
 	cout<<"$ "<<EXIT<<". Wyjdz /"<<EXIT<<"/"<<endl;
 	cout<<"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"<<endl;
 }

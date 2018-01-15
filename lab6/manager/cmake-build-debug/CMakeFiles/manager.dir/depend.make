@@ -3,8 +3,29 @@
 
 CMakeFiles/manager.dir/MemoryManager.cpp.o: ../MemoryManager.cpp
 CMakeFiles/manager.dir/MemoryManager.cpp.o: ../MemoryManager.h
+CMakeFiles/manager.dir/MemoryManager.cpp.o: ../VirtualDisc.h
+CMakeFiles/manager.dir/MemoryManager.cpp.o: ../VirtualFile.h
+CMakeFiles/manager.dir/MemoryManager.cpp.o: ../VirtualHole.h
+
+CMakeFiles/manager.dir/Validator.cpp.o: ../Validator.cpp
+CMakeFiles/manager.dir/Validator.cpp.o: ../Validator.h
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: ../VirtualDisc.cpp
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: ../VirtualDisc.h
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: ../VirtualFile.h
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: ../VirtualHole.h
+
+CMakeFiles/manager.dir/VirtualFile.cpp.o: ../VirtualFile.cpp
+CMakeFiles/manager.dir/VirtualFile.cpp.o: ../VirtualFile.h
+
+CMakeFiles/manager.dir/VirtualHole.cpp.o: ../VirtualHole.cpp
+CMakeFiles/manager.dir/VirtualHole.cpp.o: ../VirtualHole.h
 
 CMakeFiles/manager.dir/main.cpp.o: ../MemoryManager.h
+CMakeFiles/manager.dir/main.cpp.o: ../Validator.h
+CMakeFiles/manager.dir/main.cpp.o: ../VirtualDisc.h
+CMakeFiles/manager.dir/main.cpp.o: ../VirtualFile.h
+CMakeFiles/manager.dir/main.cpp.o: ../VirtualHole.h
 CMakeFiles/manager.dir/main.cpp.o: ../main.cpp
 CMakeFiles/manager.dir/main.cpp.o: ../main.h
 

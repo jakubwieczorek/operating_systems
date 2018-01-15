@@ -1,0 +1,17 @@
+DISC_NAME dysk
+MAX_SIZE 102400
+FREE_SPACE 102400
+
+wolny adres rozmiar
+zajety adres rozmiar nazwa
+$
+(
+test
+,
+siama co tam
+)
+(
+test
+,
+siama co tam
+)

@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.cpp
+sstream
+-
 MemoryManager.h
 /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
 
@@ -15,18 +17,62 @@ iostream
 -
 fstream
 -
+VirtualDisc.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp
+Validator.h
+/home/jakub/Dokumenty/soi/lab6/manager/Validator.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/Validator.h
+iostream
+-
+fstream
+-
+cstdarg
+-
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp
+VirtualDisc.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+iostream
+-
+fstream
+-
+list
+-
+VirtualFile.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+VirtualHole.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp
+VirtualFile.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+iostream
+-
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp
+VirtualHole.h
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
+
+/home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
+iostream
+-
 
 /home/jakub/Dokumenty/soi/lab6/manager/main.cpp
 iostream
--
-cstdarg
 -
 MemoryManager.h
 /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
 main.h
 /home/jakub/Dokumenty/soi/lab6/manager/main.h
-sstream
--
+Validator.h
+/home/jakub/Dokumenty/soi/lab6/manager/Validator.h
 
 /home/jakub/Dokumenty/soi/lab6/manager/main.h
 

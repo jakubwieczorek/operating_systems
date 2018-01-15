@@ -4,7 +4,28 @@
 CMakeFiles/manager.dir/MemoryManager.cpp.o
  /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.cpp
  /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
+CMakeFiles/manager.dir/Validator.cpp.o
+ /home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp
+ /home/jakub/Dokumenty/soi/lab6/manager/Validator.h
+CMakeFiles/manager.dir/VirtualDisc.cpp.o
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
+CMakeFiles/manager.dir/VirtualFile.cpp.o
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+CMakeFiles/manager.dir/VirtualHole.cpp.o
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
 CMakeFiles/manager.dir/main.cpp.o
  /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
+ /home/jakub/Dokumenty/soi/lab6/manager/Validator.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.h
+ /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.h
  /home/jakub/Dokumenty/soi/lab6/manager/main.cpp
  /home/jakub/Dokumenty/soi/lab6/manager/main.h

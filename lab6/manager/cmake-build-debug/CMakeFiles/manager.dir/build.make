@@ -105,19 +105,123 @@ CMakeFiles/manager.dir/MemoryManager.cpp.o.provides: CMakeFiles/manager.dir/Memo
 CMakeFiles/manager.dir/MemoryManager.cpp.o.provides.build: CMakeFiles/manager.dir/MemoryManager.cpp.o
 
 
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: CMakeFiles/manager.dir/flags.make
+CMakeFiles/manager.dir/VirtualDisc.cpp.o: ../VirtualDisc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/manager.dir/VirtualDisc.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/manager.dir/VirtualDisc.cpp.o -c /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manager.dir/VirtualDisc.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp > CMakeFiles/manager.dir/VirtualDisc.cpp.i
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manager.dir/VirtualDisc.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jakub/Dokumenty/soi/lab6/manager/VirtualDisc.cpp -o CMakeFiles/manager.dir/VirtualDisc.cpp.s
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.o.requires:
+
+.PHONY : CMakeFiles/manager.dir/VirtualDisc.cpp.o.requires
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.o.provides: CMakeFiles/manager.dir/VirtualDisc.cpp.o.requires
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualDisc.cpp.o.provides.build
+.PHONY : CMakeFiles/manager.dir/VirtualDisc.cpp.o.provides
+
+CMakeFiles/manager.dir/VirtualDisc.cpp.o.provides.build: CMakeFiles/manager.dir/VirtualDisc.cpp.o
+
+
+CMakeFiles/manager.dir/Validator.cpp.o: CMakeFiles/manager.dir/flags.make
+CMakeFiles/manager.dir/Validator.cpp.o: ../Validator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/manager.dir/Validator.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/manager.dir/Validator.cpp.o -c /home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp
+
+CMakeFiles/manager.dir/Validator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manager.dir/Validator.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp > CMakeFiles/manager.dir/Validator.cpp.i
+
+CMakeFiles/manager.dir/Validator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manager.dir/Validator.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jakub/Dokumenty/soi/lab6/manager/Validator.cpp -o CMakeFiles/manager.dir/Validator.cpp.s
+
+CMakeFiles/manager.dir/Validator.cpp.o.requires:
+
+.PHONY : CMakeFiles/manager.dir/Validator.cpp.o.requires
+
+CMakeFiles/manager.dir/Validator.cpp.o.provides: CMakeFiles/manager.dir/Validator.cpp.o.requires
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/Validator.cpp.o.provides.build
+.PHONY : CMakeFiles/manager.dir/Validator.cpp.o.provides
+
+CMakeFiles/manager.dir/Validator.cpp.o.provides.build: CMakeFiles/manager.dir/Validator.cpp.o
+
+
+CMakeFiles/manager.dir/VirtualFile.cpp.o: CMakeFiles/manager.dir/flags.make
+CMakeFiles/manager.dir/VirtualFile.cpp.o: ../VirtualFile.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/manager.dir/VirtualFile.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/manager.dir/VirtualFile.cpp.o -c /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp
+
+CMakeFiles/manager.dir/VirtualFile.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manager.dir/VirtualFile.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp > CMakeFiles/manager.dir/VirtualFile.cpp.i
+
+CMakeFiles/manager.dir/VirtualFile.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manager.dir/VirtualFile.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jakub/Dokumenty/soi/lab6/manager/VirtualFile.cpp -o CMakeFiles/manager.dir/VirtualFile.cpp.s
+
+CMakeFiles/manager.dir/VirtualFile.cpp.o.requires:
+
+.PHONY : CMakeFiles/manager.dir/VirtualFile.cpp.o.requires
+
+CMakeFiles/manager.dir/VirtualFile.cpp.o.provides: CMakeFiles/manager.dir/VirtualFile.cpp.o.requires
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualFile.cpp.o.provides.build
+.PHONY : CMakeFiles/manager.dir/VirtualFile.cpp.o.provides
+
+CMakeFiles/manager.dir/VirtualFile.cpp.o.provides.build: CMakeFiles/manager.dir/VirtualFile.cpp.o
+
+
+CMakeFiles/manager.dir/VirtualHole.cpp.o: CMakeFiles/manager.dir/flags.make
+CMakeFiles/manager.dir/VirtualHole.cpp.o: ../VirtualHole.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/manager.dir/VirtualHole.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/manager.dir/VirtualHole.cpp.o -c /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp
+
+CMakeFiles/manager.dir/VirtualHole.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manager.dir/VirtualHole.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp > CMakeFiles/manager.dir/VirtualHole.cpp.i
+
+CMakeFiles/manager.dir/VirtualHole.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manager.dir/VirtualHole.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jakub/Dokumenty/soi/lab6/manager/VirtualHole.cpp -o CMakeFiles/manager.dir/VirtualHole.cpp.s
+
+CMakeFiles/manager.dir/VirtualHole.cpp.o.requires:
+
+.PHONY : CMakeFiles/manager.dir/VirtualHole.cpp.o.requires
+
+CMakeFiles/manager.dir/VirtualHole.cpp.o.provides: CMakeFiles/manager.dir/VirtualHole.cpp.o.requires
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualHole.cpp.o.provides.build
+.PHONY : CMakeFiles/manager.dir/VirtualHole.cpp.o.provides
+
+CMakeFiles/manager.dir/VirtualHole.cpp.o.provides.build: CMakeFiles/manager.dir/VirtualHole.cpp.o
+
+
 # Object files for target manager
 manager_OBJECTS = \
 "CMakeFiles/manager.dir/main.cpp.o" \
-"CMakeFiles/manager.dir/MemoryManager.cpp.o"
+"CMakeFiles/manager.dir/MemoryManager.cpp.o" \
+"CMakeFiles/manager.dir/VirtualDisc.cpp.o" \
+"CMakeFiles/manager.dir/Validator.cpp.o" \
+"CMakeFiles/manager.dir/VirtualFile.cpp.o" \
+"CMakeFiles/manager.dir/VirtualHole.cpp.o"
 
 # External object files for target manager
 manager_EXTERNAL_OBJECTS =
 
 manager: CMakeFiles/manager.dir/main.cpp.o
 manager: CMakeFiles/manager.dir/MemoryManager.cpp.o
+manager: CMakeFiles/manager.dir/VirtualDisc.cpp.o
+manager: CMakeFiles/manager.dir/Validator.cpp.o
+manager: CMakeFiles/manager.dir/VirtualFile.cpp.o
+manager: CMakeFiles/manager.dir/VirtualHole.cpp.o
 manager: CMakeFiles/manager.dir/build.make
 manager: CMakeFiles/manager.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable manager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jakub/Dokumenty/soi/lab6/manager/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable manager"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/manager.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -127,6 +231,10 @@ CMakeFiles/manager.dir/build: manager
 
 CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/main.cpp.o.requires
 CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/MemoryManager.cpp.o.requires
+CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/VirtualDisc.cpp.o.requires
+CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/Validator.cpp.o.requires
+CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/VirtualFile.cpp.o.requires
+CMakeFiles/manager.dir/requires: CMakeFiles/manager.dir/VirtualHole.cpp.o.requires
 
 .PHONY : CMakeFiles/manager.dir/requires
 

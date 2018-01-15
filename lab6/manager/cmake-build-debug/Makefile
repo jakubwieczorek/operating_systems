@@ -150,6 +150,114 @@ MemoryManager.cpp.s:
 	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/MemoryManager.cpp.s
 .PHONY : MemoryManager.cpp.s
 
+Validator.o: Validator.cpp.o
+
+.PHONY : Validator.o
+
+# target to build an object file
+Validator.cpp.o:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/Validator.cpp.o
+.PHONY : Validator.cpp.o
+
+Validator.i: Validator.cpp.i
+
+.PHONY : Validator.i
+
+# target to preprocess a source file
+Validator.cpp.i:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/Validator.cpp.i
+.PHONY : Validator.cpp.i
+
+Validator.s: Validator.cpp.s
+
+.PHONY : Validator.s
+
+# target to generate assembly for a file
+Validator.cpp.s:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/Validator.cpp.s
+.PHONY : Validator.cpp.s
+
+VirtualDisc.o: VirtualDisc.cpp.o
+
+.PHONY : VirtualDisc.o
+
+# target to build an object file
+VirtualDisc.cpp.o:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualDisc.cpp.o
+.PHONY : VirtualDisc.cpp.o
+
+VirtualDisc.i: VirtualDisc.cpp.i
+
+.PHONY : VirtualDisc.i
+
+# target to preprocess a source file
+VirtualDisc.cpp.i:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualDisc.cpp.i
+.PHONY : VirtualDisc.cpp.i
+
+VirtualDisc.s: VirtualDisc.cpp.s
+
+.PHONY : VirtualDisc.s
+
+# target to generate assembly for a file
+VirtualDisc.cpp.s:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualDisc.cpp.s
+.PHONY : VirtualDisc.cpp.s
+
+VirtualFile.o: VirtualFile.cpp.o
+
+.PHONY : VirtualFile.o
+
+# target to build an object file
+VirtualFile.cpp.o:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualFile.cpp.o
+.PHONY : VirtualFile.cpp.o
+
+VirtualFile.i: VirtualFile.cpp.i
+
+.PHONY : VirtualFile.i
+
+# target to preprocess a source file
+VirtualFile.cpp.i:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualFile.cpp.i
+.PHONY : VirtualFile.cpp.i
+
+VirtualFile.s: VirtualFile.cpp.s
+
+.PHONY : VirtualFile.s
+
+# target to generate assembly for a file
+VirtualFile.cpp.s:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualFile.cpp.s
+.PHONY : VirtualFile.cpp.s
+
+VirtualHole.o: VirtualHole.cpp.o
+
+.PHONY : VirtualHole.o
+
+# target to build an object file
+VirtualHole.cpp.o:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualHole.cpp.o
+.PHONY : VirtualHole.cpp.o
+
+VirtualHole.i: VirtualHole.cpp.i
+
+.PHONY : VirtualHole.i
+
+# target to preprocess a source file
+VirtualHole.cpp.i:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualHole.cpp.i
+.PHONY : VirtualHole.cpp.i
+
+VirtualHole.s: VirtualHole.cpp.s
+
+.PHONY : VirtualHole.s
+
+# target to generate assembly for a file
+VirtualHole.cpp.s:
+	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/VirtualHole.cpp.s
+.PHONY : VirtualHole.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -189,6 +297,18 @@ help:
 	@echo "... MemoryManager.o"
 	@echo "... MemoryManager.i"
 	@echo "... MemoryManager.s"
+	@echo "... Validator.o"
+	@echo "... Validator.i"
+	@echo "... Validator.s"
+	@echo "... VirtualDisc.o"
+	@echo "... VirtualDisc.i"
+	@echo "... VirtualDisc.s"
+	@echo "... VirtualFile.o"
+	@echo "... VirtualFile.i"
+	@echo "... VirtualFile.s"
+	@echo "... VirtualHole.o"
+	@echo "... VirtualHole.i"
+	@echo "... VirtualHole.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
