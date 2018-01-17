@@ -3,6 +3,8 @@
 //
 
 #include <sstream>
+#include <iomanip>
+#include <vector>
 #include "MemoryManager.h"
 
 bool MemoryManager::createVirtualDisk(string aDiscName, long aDiskSpace)
@@ -46,19 +48,44 @@ bool MemoryManager::copyToDisc(VirtualDisc& aDisc, string aPath)
     VirtualFile virtualFile = VirtualFile();
     virtualFile.setContent(fileContent);
     virtualFile.setName(aPath);
-    virtualFile.setSize(fileContent.size());
-    virtualFile.setAddress(aDisc.files.back().getAddress() + aDisc.files.back().getSize() + 1);
+    virtualFile.setSize(countLines(fileContent) + 4);
 
-    //aDisc.files.push_back(virtualFile);
-    aDisc.files.insert(aDisc.files.begin(), virtualFile);
+    if(aDisc.getFreeSpace() - virtualFile.getSize() < 0)
+    {
+        return false;
+    }
+
+    for(const auto& el : aDisc.files)
+    {
+        if(el.getName() == aPath)
+        {
+            return false;
+        }
+    }
+
+    if(aDisc.files.size() != 0)
+    {
+        for(auto& el : aDisc.files)
+        {
+            el.setAddress(el.getAddress() + 1); // because line description for new file
+        }
+
+        virtualFile.setAddress(aDisc.files.back().getAddress() + aDisc.files.back().getSize());
+    } else
+    {
+        virtualFile.setAddress(5 + 1);
+    }
+
+    aDisc.files.push_back(virtualFile);
+
+    aDisc.setFreeSpace(aDisc.getFreeSpace() - countLines(fileContent) - 4);
     save(aDisc);
 
-    aDisc.setFreeSpace(aDisc.getFreeSpace() - fileContent.size());
-
-    return false;
+    return true;
 }
 
-bool MemoryManager::copyFromDisc(VirtualDisc aDisc, string aPath) {
+bool MemoryManager::copyFromDisc(VirtualDisc aDisc, string aPath)
+{
     return false;
 }
 
@@ -83,14 +110,14 @@ VirtualDisc* MemoryManager::openDisc(string aDiscName)
 
     while(disc>>token)
     {
-        if(token == VirtualFile::DESCRIPTOR)
+        if(token == VirtualHole::DESCRIPTOR)
         {
             VirtualHole virtualHole = VirtualHole();
             disc>>token; virtualHole.setAddress(stol(token));
             disc>>token; virtualHole.setSize(stol(token));
 
             virtualDisc->holes.push_back(virtualHole);
-        } else if(token == VirtualHole::DESCRIPTOR)
+        } else if(token == VirtualFile::DESCRIPTOR)
         {
             VirtualFile virtualFile = VirtualFile();
             disc>>token; virtualFile.setAddress(stol(token));
@@ -100,24 +127,25 @@ VirtualDisc* MemoryManager::openDisc(string aDiscName)
             virtualDisc->files.push_back(virtualFile);
         } else if(token == VirtualFile::PREFIX)// file content
         {
-            disc>>token; // name
+            string name;
+            disc>>name; // name
 
+            disc>>token; // ,
+            // now only files and maybe holes
             for(list<VirtualFile>::iterator itr= virtualDisc->files.begin();
                 itr != virtualDisc->files.end(); ++itr)
             {
-                if(itr->getName() == token)
+                if(itr->getName() == name) // set content in considered file
                 {
+                    getline(disc, token);
                     while(token != VirtualFile::SUFFIX)
                     {
+                        itr->setContent(itr->getContent() + token);
                         getline(disc, token);
-                        itr->setContent(token);
                     }
                     break;
                 }
             }
-        } else if(token == VirtualDisc::SUFFIX)
-        {
-            break;
         }
     }
 
@@ -140,29 +168,182 @@ bool MemoryManager::save(VirtualDisc &aDisc)
 
     disc<<VirtualDisc::SUFFIX<<endl;
 
-    for(list<VirtualFile>::iterator itr = aDisc.files.begin();
-        itr != aDisc.files.end(); ++itr)
+    vector<VirtualFile> files{begin(aDisc.files), end(aDisc.files)};
+    vector<VirtualHole> holes{begin(aDisc.holes), end(aDisc.holes)};
+
+    vector<int>::size_type fileIdx = 0;
+    vector<int>::size_type holeIdx = 0;
+    for(; ;)
     {
-        disc<<itr->DESCRIPTOR + " "<<itr->getAddress() + " "<<itr->getSize() + " "<<itr->getName()<<endl;
+        if(fileIdx < files.size() && holeIdx < holes.size())
+        {
+            if(files[fileIdx].getAddress() < holes[holeIdx].getAddress())
+            {
+                disc<<files[fileIdx].DESCRIPTOR + " "<<files[fileIdx].getAddress()
+                    <<" "<<files[fileIdx].getSize()<<" "<<files[fileIdx].getName()<<endl;
+
+                fileIdx++;
+            } else
+            {
+                disc<<holes[holeIdx].DESCRIPTOR + " "<<holes[holeIdx].getAddress()
+                    <<" "<<holes[holeIdx].getSize()<<" "<<endl;
+
+                holeIdx++;
+            }
+        } else if(fileIdx < files.size() && holeIdx >= holes.size())
+        {
+            disc<<files[fileIdx].DESCRIPTOR + " "<<files[fileIdx].getAddress()
+                <<" "<<files[fileIdx].getSize()<<" "<<files[fileIdx].getName()<<endl;
+
+            fileIdx++;
+        } else if(fileIdx >= files.size() && holeIdx < holes.size())
+        {
+            disc<<holes[holeIdx].DESCRIPTOR + " "<<holes[holeIdx].getAddress()
+                <<" "<<holes[holeIdx].getSize()<<" "<<endl;
+
+            holeIdx++;
+
+        } else if(fileIdx >= files.size() && holeIdx >= holes.size())
+        {
+            break;
+        }
     }
 
-    for(list<VirtualHole>::iterator itr = aDisc.holes.begin();
-        itr != aDisc.holes.end(); ++itr)
+    fileIdx = 0;
+    holeIdx = 0;
+    for(; ;)
     {
-        disc<<itr->DESCRIPTOR + " "<<itr->getAddress() + " "<<itr->getSize() + " "<<endl;
-    }
+        if(fileIdx < files.size() && holeIdx < holes.size())
+        {
+            if(files[fileIdx].getAddress() < holes[holeIdx].getAddress())
+            {
+                disc<<"("<<endl
+                    <<files[fileIdx].getName()<<endl
+                    <<","<<endl
+                    <<files[fileIdx].getContent()<<endl
+                    <<")"<<endl;
 
-    for(list<VirtualFile>::iterator itr = aDisc.files.begin();
-        itr != aDisc.files.end(); ++itr)
-    {
-        disc<<"("<<endl
-            <<itr->getName()<<endl
-            <<","<<endl
-            <<itr->getContent()<<endl
-            <<")"<<endl;
+                fileIdx++;
+            } else
+            {
+                for(long i = 0; i < holes[holeIdx].getSize() + 4; i++)
+                {
+                    disc<<endl;
+                }
+
+                holeIdx++;
+            }
+        } else if(fileIdx < files.size() && holeIdx >= holes.size())
+        {
+            disc<<"("<<endl
+                <<files[fileIdx].getName()<<endl
+                <<","<<endl
+                <<files[fileIdx].getContent()<<endl
+                <<")"<<endl;
+
+            fileIdx++;
+        } else if(fileIdx >= files.size() && holeIdx < holes.size())
+        {
+            for(long i = 0; i < holes[holeIdx].getSize(); i++)
+            {
+                disc<<endl;
+            }
+
+            holeIdx++;
+
+        } else if(fileIdx >= files.size() && holeIdx >= holes.size())
+        {
+            break;
+        }
     }
 
     disc.close();
 
     return false;
 }
+
+long MemoryManager::countLines(string aString)
+{
+    long count = 0;
+
+    for (int i = 0; i < aString.size(); i++)
+    {
+        if (aString[i] == '\n')
+        {
+            count++;
+        }
+    }
+
+    return count + 1;
+}
+
+bool MemoryManager::showContent(VirtualDisc aDisc)
+{
+    for(const auto& el : aDisc.files)
+    {
+        cout<<el.getName()<<endl;
+    }
+
+    return true;
+}
+
+bool MemoryManager::showMap(VirtualDisc aDisc)
+{
+    cout<<"MAX SIZE:   "<<aDisc.getMAX_DISC_SIZE()<<endl;
+    cout<<"FREE SPACE: "<<aDisc.getFreeSpace()<<endl;
+
+    if(aDisc.files.size() > 0)
+    {
+        cout<<setw(20)<<"FILE"<<setw(10)<<"ADDRESS"<<setw(10)<<"SIZE"<<endl;
+        cout<<"----------------------------------------"<<endl;
+        for(const auto& el : aDisc.files)
+        {
+            cout<<setw(20)<<el.getName()<<setw(10)<<el.getAddress()<<setw(10)<<el.getSize()<<endl;
+        }
+    }
+
+    if(aDisc.holes.size() > 0)
+    {
+        cout << setw(30) << "ADDRESS" << setw(10) << "SIZE" << endl;
+        cout << "----------------------------------------" << endl;
+        for (const auto &el : aDisc.holes) {
+            cout << setw(30) << el.getAddress() << setw(10) << el.getSize() << endl;
+        }
+    }
+
+    return false;
+}
+
+bool MemoryManager::deleteFileFromDisc(VirtualDisc aDisc, string aFileName)
+{
+    if(aDisc.files.size() != 0)
+    {
+        for(auto& el : aDisc.files)
+        {
+            if(el.getName() == aFileName)
+            {
+                VirtualHole virtualHole = VirtualHole();
+                virtualHole.setAddress(el.getAddress());
+                virtualHole.setSize(el.getSize());
+                aDisc.holes.push_back(virtualHole);
+
+                aDisc.files.remove(el);
+
+                break;
+            }
+        }
+    } else
+    {
+        return false;
+    }
+
+    save(aDisc);
+
+    return true;
+}
+
+bool MemoryManager::deleteDisc(string aDiscName)
+{
+    return false;
+}
+

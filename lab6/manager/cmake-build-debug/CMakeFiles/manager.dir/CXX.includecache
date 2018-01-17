@@ -9,6 +9,10 @@
 /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.cpp
 sstream
 -
+iomanip
+-
+vector
+-
 MemoryManager.h
 /home/jakub/Dokumenty/soi/lab6/manager/MemoryManager.h
 

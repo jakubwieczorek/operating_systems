@@ -13,6 +13,8 @@ using namespace std;
 
 class MemoryManager
 {
+private:
+    long countLines(string aString);
 public:
 
     bool createVirtualDisk(string aDiscName, long aDiskSpace);
@@ -20,6 +22,13 @@ public:
     bool copyFromDisc(VirtualDisc aDisc, string aPath);
     bool save(VirtualDisc& aDisc);
     VirtualDisc* openDisc(string aDiscName);
+    bool showContent(VirtualDisc aDisc);
+
+    bool showMap(VirtualDisc aDisc);
+
+    bool deleteFileFromDisc(VirtualDisc aDisc, string aFileName);
+
+    bool deleteDisc(string aDiscName);
 };
 
 

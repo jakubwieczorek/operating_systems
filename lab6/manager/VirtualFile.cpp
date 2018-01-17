@@ -39,3 +39,11 @@ const string &VirtualFile::getContent() const {
 void VirtualFile::setContent(const string &content) {
     VirtualFile::content = content;
 }
+
+bool VirtualFile::operator==(const VirtualFile &rhs) const {
+    return name == rhs.name;
+}
+
+bool VirtualFile::operator!=(const VirtualFile &rhs) const {
+    return !(rhs == *this);
+}

@@ -34,6 +34,10 @@ public:
     const string &getContent() const;
 
     void setContent(const string &content);
+
+    bool operator==(const VirtualFile &rhs) const;
+
+    bool operator!=(const VirtualFile &rhs) const;
 };
 
 

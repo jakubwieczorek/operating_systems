@@ -7,4 +7,8 @@
 void menu();
 void virtual_disk_menu(MemoryManager aManager);
 void add_file_menu(MemoryManager aManager);
+void show_content_menu(MemoryManager aManager);
+void show_map_menu(MemoryManager aManager);
+void delete_file_menu(MemoryManager aManager);
+void delete_disc_menu(MemoryManager aManager);
 #endif //MANAGER_MAIN_H
