@@ -3,10 +3,15 @@
 #include"main.h"
 #include "Validator.h"
 
+/**
+ * Dysk: dostep sekwencyjny z fragmentacja wewnetrzna. Jedna linia rozmiaru jeden dowolnie dluga
+ *
+ * */
+
 using namespace std;
 
 enum {EXIT, SHOW_MENU, CREATE_VIRTUAL_DISC, ADD_FILE, SHOW_CONTENT, SHOW_MAP, DELETE_FILE,
-    DELETE_DISC, CMD_SIZE};
+    DELETE_DISC, COPY_TO_OS, CMD_SIZE};
 
 int main()
 {
@@ -40,6 +45,11 @@ int main()
             case ADD_FILE:
             {
                 add_file_menu(memoryManager);
+                break;
+            }
+            case COPY_TO_OS:
+            {
+                copy_file_menu(memoryManager);
                 break;
             }
             case SHOW_CONTENT:
@@ -85,9 +95,13 @@ void add_file_menu(MemoryManager aManager)
 
     VirtualDisc* virtualDisc = aManager.openDisc(disc_name);
 
-    if(!aManager.copyToDisc(*virtualDisc, file_name))
+    int ret = aManager.copyToDisc(*virtualDisc, file_name);
+    if(ret == 2)
     {
         cout<<"Plik juz istnieje"<<endl;
+    } else if(ret == 1)
+    {
+        cout<<"Brak miejsca na dysku"<<endl;
     }
 }
 
@@ -105,7 +119,20 @@ void delete_disc_menu(MemoryManager aManager)
 {
     string disc_name = Validator::str("Nazwa dysku (bez formatu)> ", 1000);
 
-    aManager.deleteDisc(disc_name);
+    if(aManager.deleteDisc(disc_name))
+    {
+        cout<<"Blad podczas usuwania"<<endl;
+    }
+}
+
+void copy_file_menu(MemoryManager aManager)
+{
+    string disc_name = Validator::str("Nazwa dysku (bez formatu)> ", 1000);
+    string file_name = Validator::str("Nazwa pliku> ", 1000);
+
+    VirtualDisc* virtualDisc = aManager.openDisc(disc_name);
+
+    aManager.copyFileToOs(*virtualDisc, file_name);
 }
 
 void show_content_menu(MemoryManager aManager)
@@ -147,6 +174,7 @@ void menu()
 	cout<<"$ "<<SHOW_MAP<<". Wyswietl mape pamieci /"<<SHOW_MAP<<"/"<<endl;
 	cout<<"$ "<<DELETE_FILE<<". Usun plik /"<<DELETE_FILE<<"/"<<endl;
 	cout<<"$ "<<DELETE_DISC<<". Usun dysk /"<<DELETE_DISC<<"/"<<endl;
-	cout<<"$ "<<EXIT<<". Wyjdz /"<<EXIT<<"/"<<endl;
+    cout<<"$ "<<COPY_TO_OS<<". Skopiuj plik z dysku do biezacego katalogu /"<<COPY_TO_OS<<"/"<<endl;
+    cout<<"$ "<<EXIT<<". Wyjdz /"<<EXIT<<"/"<<endl;
 	cout<<"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"<<endl;
 }

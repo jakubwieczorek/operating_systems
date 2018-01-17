@@ -42,3 +42,31 @@ const string &VirtualDisc::getDISC_EXTENSION() {
 const long VirtualDisc::getMAX_DISC_SIZE() {
     return MAX_DISC_SIZE;
 }
+
+long VirtualDisc::getDiscSize() const {
+    return discSize;
+}
+
+void VirtualDisc::setDiscSize(long discSize) {
+    VirtualDisc::discSize = discSize;
+}
+
+const list <VirtualFile> &VirtualDisc::getFiles() const {
+    return files;
+}
+
+void VirtualDisc::setFiles(const list <VirtualFile> &files) {
+    VirtualDisc::files = files;
+}
+
+const list <VirtualHole> &VirtualDisc::getHoles() const {
+    return holes;
+}
+
+void VirtualDisc::setHoles(const list <VirtualHole> &holes) {
+    VirtualDisc::holes = holes;
+}
+
+const string &VirtualDisc::getSUFFIX() {
+    return SUFFIX;
+}

@@ -18,7 +18,7 @@ private:
 public:
 
     bool createVirtualDisk(string aDiscName, long aDiskSpace);
-    bool copyToDisc(VirtualDisc& aDisc, string aPath);
+    int copyToDisc(VirtualDisc& aDisc, string aPath);
     bool copyFromDisc(VirtualDisc aDisc, string aPath);
     bool save(VirtualDisc& aDisc);
     VirtualDisc* openDisc(string aDiscName);
@@ -29,6 +29,8 @@ public:
     bool deleteFileFromDisc(VirtualDisc aDisc, string aFileName);
 
     bool deleteDisc(string aDiscName);
+
+    bool copyFileToOs(VirtualDisc aDisc, string aFileName);
 };
 
 

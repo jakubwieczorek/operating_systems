@@ -23,8 +23,8 @@ bool MemoryManager::createVirtualDisk(string aDiscName, long aDiskSpace)
     }
 
     file<<aDiscName<<endl
-        <<VirtualDisc::MAX_DISC_SIZE<<endl
-        <<VirtualDisc::MAX_DISC_SIZE<<endl
+        <<aDiskSpace<<endl
+        <<aDiskSpace<<endl
         <<VirtualDisc::SUFFIX<<endl;
 
     file.close();
@@ -32,13 +32,13 @@ bool MemoryManager::createVirtualDisk(string aDiscName, long aDiskSpace)
     return true;
 }
 
-bool MemoryManager::copyToDisc(VirtualDisc& aDisc, string aPath)
+int MemoryManager::copyToDisc(VirtualDisc& aDisc, string aPath)
 {
     ifstream file(aPath);
 
     if(!file.is_open() || !file.good())
     {
-        return false;
+        return 3;
     }
 
     string fileContent((istreambuf_iterator<char>(file)), (istreambuf_iterator<char>()));
@@ -52,14 +52,14 @@ bool MemoryManager::copyToDisc(VirtualDisc& aDisc, string aPath)
 
     if(aDisc.getFreeSpace() - virtualFile.getSize() < 0)
     {
-        return false;
+        return 1;
     }
 
     for(const auto& el : aDisc.files)
     {
         if(el.getName() == aPath)
         {
-            return false;
+            return 2;
         }
     }
 
@@ -81,7 +81,7 @@ bool MemoryManager::copyToDisc(VirtualDisc& aDisc, string aPath)
     aDisc.setFreeSpace(aDisc.getFreeSpace() - countLines(fileContent) - 4);
     save(aDisc);
 
-    return true;
+    return 0;
 }
 
 bool MemoryManager::copyFromDisc(VirtualDisc aDisc, string aPath)
@@ -104,7 +104,8 @@ VirtualDisc* MemoryManager::openDisc(string aDiscName)
 
     disc>>token; // disc_name
     virtualDisc->setDiscName(token);
-    disc>>token; // max_size
+    disc>>token; // disc_space
+    virtualDisc->setDiscSize(stol(token));
     disc>>token; // free_size
     virtualDisc->setFreeSpace(stol(token));
 
@@ -163,7 +164,7 @@ bool MemoryManager::save(VirtualDisc &aDisc)
     }
 
     disc<<aDisc.getDiscName()<<endl
-        <<aDisc.MAX_DISC_SIZE<<endl
+        <<aDisc.getDiscSize()<<endl
         <<aDisc.getFreeSpace()<<endl;
 
     disc<<VirtualDisc::SUFFIX<<endl;
@@ -173,7 +174,8 @@ bool MemoryManager::save(VirtualDisc &aDisc)
 
     vector<int>::size_type fileIdx = 0;
     vector<int>::size_type holeIdx = 0;
-    for(; ;)
+    for(; ;) // petla do wypisywania mapy na poczatku pliku w odpowiedniej kolejnosci
+        // nie mozna tylko przejechac po dwoch listach bo adresy nie beda sie zgadzac
     {
         if(fileIdx < files.size() && holeIdx < holes.size())
         {
@@ -211,7 +213,7 @@ bool MemoryManager::save(VirtualDisc &aDisc)
 
     fileIdx = 0;
     holeIdx = 0;
-    for(; ;)
+    for(; ;) // to samo co wyzej tylko dla zawartosci i dla dziur, dziura tez jest wypisana
     {
         if(fileIdx < files.size() && holeIdx < holes.size())
         {
@@ -289,11 +291,12 @@ bool MemoryManager::showContent(VirtualDisc aDisc)
 
 bool MemoryManager::showMap(VirtualDisc aDisc)
 {
-    cout<<"MAX SIZE:   "<<aDisc.getMAX_DISC_SIZE()<<endl;
+    cout<<"DISC SPACE:   "<<aDisc.getDiscSize()<<endl;
     cout<<"FREE SPACE: "<<aDisc.getFreeSpace()<<endl;
 
     if(aDisc.files.size() > 0)
     {
+        cout<<"FILES:"<<endl;
         cout<<setw(20)<<"FILE"<<setw(10)<<"ADDRESS"<<setw(10)<<"SIZE"<<endl;
         cout<<"----------------------------------------"<<endl;
         for(const auto& el : aDisc.files)
@@ -304,6 +307,7 @@ bool MemoryManager::showMap(VirtualDisc aDisc)
 
     if(aDisc.holes.size() > 0)
     {
+        cout<<"HOLES:"<<endl;
         cout << setw(30) << "ADDRESS" << setw(10) << "SIZE" << endl;
         cout << "----------------------------------------" << endl;
         for (const auto &el : aDisc.holes) {
@@ -327,6 +331,7 @@ bool MemoryManager::deleteFileFromDisc(VirtualDisc aDisc, string aFileName)
                 virtualHole.setSize(el.getSize());
                 aDisc.holes.push_back(virtualHole);
 
+                // aDisc.setFreeSpace(aDisc.getFreeSpace() + el.getSize()); when defragmentation
                 aDisc.files.remove(el);
 
                 break;
@@ -344,6 +349,29 @@ bool MemoryManager::deleteFileFromDisc(VirtualDisc aDisc, string aFileName)
 
 bool MemoryManager::deleteDisc(string aDiscName)
 {
+    string sDisk = aDiscName + VirtualDisc::DISC_EXTENSION;
+    return (bool) remove(sDisk.c_str());
+}
+
+bool MemoryManager::copyFileToOs(VirtualDisc aDisc, string aFileName)
+{
+    for(auto& el : aDisc.files)
+    {
+        if(el.getName() == aFileName)
+        {
+            ofstream disc(aFileName);
+
+            if(!disc.is_open() || !disc.good())
+            {
+                return true;
+            }
+
+            disc<<el.getContent();
+
+            disc.close();
+        }
+    }
+
     return false;
 }
 

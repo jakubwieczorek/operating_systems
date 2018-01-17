@@ -17,7 +17,7 @@ class VirtualDisc {
 private:
     string discName;
     long freeSpace;
-
+    long discSize;
 public:
     list<VirtualFile> files;
     list<VirtualHole> holes;
@@ -40,6 +40,20 @@ public:
     static const string &getDISC_EXTENSION();
 
     static const long getMAX_DISC_SIZE();
+
+    long getDiscSize() const;
+
+    void setDiscSize(long discSize);
+
+    const list <VirtualFile> &getFiles() const;
+
+    void setFiles(const list <VirtualFile> &files);
+
+    const list <VirtualHole> &getHoles() const;
+
+    void setHoles(const list <VirtualHole> &holes);
+
+    static const string &getSUFFIX();
 };
 
 
